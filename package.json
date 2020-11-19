@@ -23,8 +23,15 @@
     "test": "web-test-runner \"src/**/*.test.jsx\""
   },
   "dependencies": {
+    "@apollo/client": "^3.2.7",
+    "apollo-server": "^2.19.0",
+    "axios": "^0.21.0",
+    "graphql": "^15.4.0",
+    "node-fetch": "^2.6.1",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "redis": "^3.0.2",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.4",
