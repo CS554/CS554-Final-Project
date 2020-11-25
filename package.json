@@ -1,47 +1,40 @@
 {
-  "name": "@snowpack/app-template-react",
-  "description": "A preconfigured template for Snowpack with React",
-  "version": "1.12.7",
-  "license": "MIT",
-  "homepage": "https://github.com/snowpackjs/snowpack/tree/master/create-snowpack-app/app-template-react#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/snowpackjs/snowpack.git",
-    "directory": "create-snowpack-app/app-template-react"
-  },
-  "keywords": [
-    "csa-template"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "name": "react-amplified",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@aws-amplify/ui-react": "^0.2.30",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "aws-amplify": "^3.3.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
-    "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "prettier --check \"src/**/*.{js,jsx}\"",
-    "test": "web-test-runner \"src/**/*.test.jsx\""
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "dependencies": {
-    "@apollo/client": "^3.2.7",
-    "apollo-server": "^2.19.0",
-    "axios": "^0.21.0",
-    "graphql": "^15.4.0",
-    "node-fetch": "^2.6.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "redis": "^3.0.2",
-    "uuid": "^8.3.1"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "devDependencies": {
-    "@snowpack/plugin-dotenv": "^2.0.4",
-    "@snowpack/plugin-react-refresh": "^2.3.7",
-    "@snowpack/web-test-runner-plugin": "^0.1.4",
-    "@testing-library/react": "^11.0.0",
-    "@web/test-runner": "^0.9.7",
-    "chai": "^4.2.0",
-    "prettier": "^2.0.5",
-    "snowpack": "^2.17.1"
-  },
-  "gitHead": "a01616bb0787d56cd782f94cecf2daa12c7594e4"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

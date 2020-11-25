@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-takeahike-dev-201346-authRole",
+      "UnauthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-takeahike-dev-201346-deployment",
+      "UnauthRoleName": "amplify-takeahike-dev-201346-unauthRole",
+      "StackName": "amplify-takeahike-dev-201346",
+      "StackId": "arn:aws:cloudformation:us-east-1:590272945317:stack/amplify-takeahike-dev-201346/50d0f860-2df2-11eb-9da1-0e706f74ed45",
+      "AmplifyAppId": "d17njh93d1wppi"
+    }
+  }
+}
