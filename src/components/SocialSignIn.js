@@ -18,7 +18,7 @@ const SocialSignIn = () => {
       />
       <img
         onClick={() => socialSignOn('facebook')}
-        alt="google signin"
+        alt="facebook signin"
         src="/imgs/facebook_signin.png"
       />
     </div>
