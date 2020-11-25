@@ -14,13 +14,13 @@
 }
 
 .App-header {
+  background-image: url('./hiking\ horizontal.jpeg');
+
+  background-size: 100% 400px;
+  background-repeat: no-repeat;
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 300px;
+  padding: 20px;
   color: white;
 }
 
@@ -35,4 +35,42 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navigation {
+}
+
+.navigation ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation a:link,
+.navigation a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.active {
+  font-weight: bold;
+  color: red !important;
+}
+
+.error {
+  font-weight: bold;
+  color: red !important;
+}
+
+.forgotPassword {
+  background: none !important;
+  border: none !important;
+  text-decoration: underline;
+  margin-left: 5px;
+  color: #069;
+}
+
+.forgotPassword:hover {
+  text-decoration: none;
+  color: red;
 }
