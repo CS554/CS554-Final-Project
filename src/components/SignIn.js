@@ -58,6 +58,7 @@ function SignIn() {
             <input
               className="form-control"
               name="password"
+              id="password"
               type="password"
               placeholder="Password"
               required
