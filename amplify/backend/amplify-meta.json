@@ -35,7 +35,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-takeahike-dev-201346-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apitakeahike"
       },
-      "lastPushTimeStamp": "2020-11-27T03:08:47.538Z",
+      "lastPushTimeStamp": "2020-11-27T23:11:56.443Z",
       "lastPushDirHash": "gzbrctD8YjYLoirMbLJG7jXTPcY="
     }
   }
