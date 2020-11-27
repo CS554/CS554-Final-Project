@@ -1,32 +1,83 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
-      id
+export const listTrails = /* GraphQL */ `
+  query ListTrails {
+    listTrails {
+      trailID
       name
-      description
-      createdAt
-      updatedAt
+      summary
+      difficulty
+      rating
+      num_of_ratings
+      length
+      ascent
+      descent
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
+export const listTrail = /* GraphQL */ `
+  query ListTrail($trail_id: ID!) {
+    listTrail(trail_id: $trail_id) {
+      trailID
+      name
+      summary
+      difficulty
+      rating
+      num_of_ratings
+      length
+      ascent
+      descent
+    }
+  }
+`;
+export const listUsersInGroup = /* GraphQL */ `
+  query ListUsersInGroup($group_id: ID!) {
+    listUsersInGroup(group_id: $group_id) {
+      id
+      name
+      lat
+      long
+      favorites {
+        trailID
         name
-        description
-        createdAt
-        updatedAt
+        summary
+        difficulty
+        rating
+        num_of_ratings
+        length
+        ascent
+        descent
       }
-      nextToken
+      groups {
+        groupID
+        name
+      }
+    }
+  }
+`;
+export const updateUserLocation = /* GraphQL */ `
+  query UpdateUserLocation($user_id: ID!, $lat: Float!, $long: Float!) {
+    updateUserLocation(user_id: $user_id, lat: $lat, long: $long) {
+      id
+      name
+      lat
+      long
+      favorites {
+        trailID
+        name
+        summary
+        difficulty
+        rating
+        num_of_ratings
+        length
+        ascent
+        descent
+      }
+      groups {
+        groupID
+        name
+      }
     }
   }
 `;

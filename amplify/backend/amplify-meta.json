@@ -1,42 +1,59 @@
 {
-  "providers": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-takeahike-dev-201346-authRole",
-      "UnauthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-takeahike-dev-201346-deployment",
-      "UnauthRoleName": "amplify-takeahike-dev-201346-unauthRole",
-      "StackName": "amplify-takeahike-dev-201346",
-      "StackId": "arn:aws:cloudformation:us-east-1:590272945317:stack/amplify-takeahike-dev-201346/50d0f860-2df2-11eb-9da1-0e706f74ed45",
-      "AmplifyAppId": "d17njh93d1wppi"
-    }
-  },
-  "api": {
-    "takeahike": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7,
-              "description": ""
-            }
-          },
-          "additionalAuthenticationProviders": []
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-takeahike-dev-201346-authRole",
+            "UnauthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::590272945317:role/amplify-takeahike-dev-201346-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-takeahike-dev-201346-deployment",
+            "UnauthRoleName": "amplify-takeahike-dev-201346-unauthRole",
+            "StackName": "amplify-takeahike-dev-201346",
+            "StackId": "arn:aws:cloudformation:us-east-1:590272945317:stack/amplify-takeahike-dev-201346/50d0f860-2df2-11eb-9da1-0e706f74ed45",
+            "AmplifyAppId": "d17njh93d1wppi"
+        }
+    },
+    "api": {
+        "takeahike": {
+            "service": "AppSync",
+            "providerPlugin": "awscloudformation",
+            "output": {
+                "authConfig": {
+                    "defaultAuthentication": {
+                        "authenticationType": "API_KEY",
+                        "apiKeyConfig": {
+                            "apiKeyExpirationDays": 7,
+                            "description": ""
+                        }
+                    },
+                    "additionalAuthenticationProviders": []
+                },
+                "GraphQLAPIIdOutput": "i7hpnm5okjg2zfjdclrbi353om",
+                "GraphQLAPIEndpointOutput": "https://lhydurxbqrhufb3umcgeqnafoa.appsync-api.us-east-1.amazonaws.com/graphql",
+                "GraphQLAPIKeyOutput": "da2-zjsnawstgrfevpfytbjldwviva"
+            },
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-takeahike-dev-201346-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+                "logicalId": "apitakeahike"
+            },
+            "lastPushTimeStamp": "2020-11-27T23:11:56.443Z",
+            "lastPushDirHash": "gzbrctD8YjYLoirMbLJG7jXTPcY="
         },
-        "GraphQLAPIIdOutput": "i7hpnm5okjg2zfjdclrbi353om",
-        "GraphQLAPIEndpointOutput": "https://lhydurxbqrhufb3umcgeqnafoa.appsync-api.us-east-1.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-zjsnawstgrfevpfytbjldwviva"
-      },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-takeahike-dev-201346-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apitakeahike"
-      },
-      "lastPushTimeStamp": "2020-11-27T23:11:56.443Z",
-      "lastPushDirHash": "gzbrctD8YjYLoirMbLJG7jXTPcY="
+        "Take_A_Hike": {
+            "service": "AppSync",
+            "output": {
+                "authConfig": {
+                    "defaultAuthentication": {
+                        "authenticationType": "API_KEY"
+                    },
+                    "additionalAuthenticationProviders": null
+                },
+                "GraphQLAPIIdOutput": "7ynyeecrfraujdfveaagi6rw5m",
+                "GraphQLAPIEndpointOutput": "https://wfbixvhqcffwhceonnpjt4qeye.appsync-api.us-east-2.amazonaws.com/graphql",
+                "name": "Take_A_Hike",
+                "region": "us-east-2",
+                "GraphQLAPIKeyOutput": "da2-g5uktrjm5jhmhiz2vpdp7vmxi4"
+            },
+            "lastPushTimeStamp": "2020-11-27T23:20:07.411Z"
+        }
     }
-  }
 }

@@ -1,45 +1,58 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    createTodo(input: $input, condition: $condition) {
-      id
+export const addFavorite = /* GraphQL */ `
+  mutation AddFavorite($user_id: ID!, $new_favorite: ID!) {
+    addFavorite(user_id: $user_id, new_favorite: $new_favorite) {
+      trailID
       name
-      description
-      createdAt
-      updatedAt
+      summary
+      difficulty
+      rating
+      num_of_ratings
+      length
+      ascent
+      descent
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    updateTodo(input: $input, condition: $condition) {
-      id
+export const deleteFavorite = /* GraphQL */ `
+  mutation DeleteFavorite($user_id: ID!, $new_favorite: ID!) {
+    deleteFavorite(user_id: $user_id, new_favorite: $new_favorite) {
+      trailID
       name
-      description
-      createdAt
-      updatedAt
+      summary
+      difficulty
+      rating
+      num_of_ratings
+      length
+      ascent
+      descent
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    deleteTodo(input: $input, condition: $condition) {
+export const addUserToGroup = /* GraphQL */ `
+  mutation AddUserToGroup($group_id: ID!, $user_id: ID!) {
+    addUserToGroup(group_id: $group_id, user_id: $user_id) {
       id
       name
-      description
-      createdAt
-      updatedAt
+      lat
+      long
+      favorites {
+        trailID
+        name
+        summary
+        difficulty
+        rating
+        num_of_ratings
+        length
+        ascent
+        descent
+      }
+      groups {
+        groupID
+        name
+      }
     }
   }
 `;
