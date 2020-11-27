@@ -1,5 +1,5 @@
 {
-  "projectName": "takeahike",
+  "projectName": "CS554-FINAL-PROJECT",
   "version": "3.0",
   "frontend": "javascript",
   "javascript": {
@@ -11,7 +11,5 @@
       "StartCommand": "npm run-script start"
     }
   },
-  "providers": [
-    "awscloudformation"
-  ]
+  "providers": ["awscloudformation"]
 }
