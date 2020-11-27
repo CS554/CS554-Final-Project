@@ -1,6 +1,6 @@
 # New Project
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
+> ✨ Bootstrapped with Create Snowpack App (CSA). 
 
 ## Available Scripts
 
