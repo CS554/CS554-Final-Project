@@ -162,3 +162,6 @@ API
 Training
 Blog
 About
+
+# AWS exports credentials
+aws-exports.js
