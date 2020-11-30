@@ -1,15 +1,14 @@
 import React, { useState, useRef, forwardRef, useEffect } from "react";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
-
 import osm from "./osm-providers";
-
-
 import useGeoLocation from "../hooks/useGeoLocation";
+import "leaflet/dist/leaflet.css";
 
+delete L.Icon.Default.prototype._getIconUrl;
 
 const markerIcon = new L.Icon({
-  iconUrl: "../images/marker.png",
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
   iconSize: [40, 40],
   iconAnchor: [17, 46], //[left/right, top/bottom]
   popupAnchor: [0, -46], //[left/right, top/bottom]
@@ -51,8 +50,8 @@ const Home = () => {
     <>
       <div className="row">
         <div className="col text-center">
-          <h2>React-leaflet - Get user location</h2>
-          <p>Get user location and highlight it with a marker</p>
+          <h2>Find your Location</h2>
+          <p>Find Hiking trails near you!</p>
           <div className="col">
             <Map ref={mapRef} center={center} zoom={ZOOM_LEVEL} >
               <TileLayer
