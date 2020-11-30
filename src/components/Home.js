@@ -25,7 +25,7 @@ const Home = () => {
     if(mapRef){
       setLoading(true);
     }
-  },[mapRef]);
+  },[]);
 
 
   const location = useGeoLocation();
@@ -42,7 +42,7 @@ const Home = () => {
         { animate: true }
       );
     } else {
-      alert(location.error);
+      alert("loading location...");
     }
   };
 
@@ -75,7 +75,7 @@ const Home = () => {
 
       <div className="row my-4">
         <div className="col d-flex justify-content-center">
-          <button className="btn btn-primary" onClick={showMyLocation} disabled={!loading}>
+          <button className="btn btn-primary" onClick={showMyLocation} disabled={!location.loaded}>
             Locate Me
           </button>
         </div>
