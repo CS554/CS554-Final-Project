@@ -4,6 +4,8 @@ import L from "leaflet";
 import osm from "./osm-providers";
 import useGeoLocation from "../hooks/useGeoLocation";
 import "leaflet/dist/leaflet.css";
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -18,7 +20,12 @@ import Grid from '@material-ui/core/Grid';
 
 
 
-delete L.Icon.Default.prototype._getIconUrl;
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const trails = [
   {
@@ -286,13 +293,6 @@ const useStyles = makeStyles({
 });
 
 
-const markerIcon = new L.Icon({
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  iconSize: [40, 40],
-  iconAnchor: [17, 46], //[left/right, top/bottom]
-  popupAnchor: [0, -46], //[left/right, top/bottom]
-});
-
 const Home = () => {
   const [center, setCenter] = useState({ lat: 0.0000, lng: 0.000000 });
   const ZOOM_LEVEL = 9;
@@ -364,7 +364,7 @@ console.log(trails)
 
               {location.loaded && !location.error && (
                 <Marker
-                  icon={markerIcon}
+                  icon={DefaultIcon}
                   position={[
                     location.coordinates.lat,
                     location.coordinates.lng,
