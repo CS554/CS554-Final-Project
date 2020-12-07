@@ -24,8 +24,18 @@ const NavigationAuth = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/account" activeClassName="active">
+          <NavLink exact to="/profile/:id" activeClassName="active">
             Account
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/profile/:id/groups" activeClassName="active">
+            Group
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/profile/:id/favorites" activeClassName="active">
+            Favorites
           </NavLink>
         </li>
         <li>

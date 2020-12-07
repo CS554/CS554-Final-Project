@@ -10,6 +10,10 @@ import SignUp from './components/SignUp';
 import { AuthProvider } from './firebase/Auth';
 import PrivateRoute from './components/PrivateRoute';
 import Trail from './components/Trail'
+import Favorites from './components/Favorites'
+import Groups from './components/Groups'
+
+
 
 function App() {
   return (
@@ -22,8 +26,10 @@ function App() {
         </div>
         <Route exact path="/" component={Landing} />
         <PrivateRoute path="/home" component={Home} />
-        <PrivateRoute path="/account" component={Account} />
+        <PrivateRoute exact path="/profile/:id" component={Account} />
         <PrivateRoute exact path="/trails/:id" component={Trail}/>
+        <PrivateRoute exact path="/profile/:id/favorites" component={Favorites}/>
+        <PrivateRoute exact path="/profile/:id/groups" component={Groups}/>
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
       </Router>
