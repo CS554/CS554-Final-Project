@@ -33,7 +33,11 @@ function SignIn() {
     }
   };
   if (currentUser) {
-    return <Redirect to="/home" />;
+    console.log(currentUser.uid);
+    return <Redirect to={{
+      pathname: "/home",
+      state: { user_id: currentUser.uid}
+    }}/>;
   }
   return (
     <div>

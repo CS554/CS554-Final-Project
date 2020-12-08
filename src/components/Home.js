@@ -293,13 +293,14 @@ const useStyles = makeStyles({
 });
 
 
-const Home = () => {
+const Home = (props) => {
   const [center, setCenter] = useState({ lat: 0.0000, lng: 0.000000 });
   const ZOOM_LEVEL = 9;
   const mapRef = useRef();
   const classes = useStyles();
   let cards = null
-
+  console.log('here')
+  console.log("user_id",props.location.state.user_id);
   const location = useGeoLocation();
   console.log(location)
   const showMyLocation = () => {
