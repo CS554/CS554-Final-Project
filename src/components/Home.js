@@ -300,7 +300,6 @@ const Home = (props) => {
   const classes = useStyles();
   let cards = null
   console.log('here')
-  console.log("user_id",props.location.state.user_id);
   const location = useGeoLocation();
   console.log(location)
   const showMyLocation = () => {
