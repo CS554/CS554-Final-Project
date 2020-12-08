@@ -100,7 +100,6 @@ const resolvers = {
 	}
 };
 
-/*
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
@@ -112,17 +111,17 @@ const server = new ApolloServer({
 	})
 });
 
-
 exports.handler = server.createHandler({
 	cors: {
 		origin: '*',
 		credentials: true
 	}
-});*/
+});
 
 //Delete when deployed to dev
+/*
 const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen().then(({ url }) => {
 	console.log(`🚀  Server ready at ${url} 🚀`);
-});
+});*/
