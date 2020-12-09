@@ -1,27 +1,14 @@
 const { gql } = require('apollo-server-lambda');
 
 const typeDefs = gql`
-  input AddUser {
-    id: ID!
-    name: String
-    lat: Float
-    long: Float
+  type Query {
+    hello: String
+    listTrails: [Trail]
   }
   type Group {
     groupID: ID!
     name: String
     members: [User]
-  }
-  type Mutation {
-    addFavorite(user_id: ID!, new_favorite: ID!): Trail
-    deleteFavorite(user_id: ID!, new_favorite: ID!): Trail
-    addUserToGroup(group_id: ID!, user_id: ID!): [User]
-  }
-  type Query {
-    listTrails: [Trail]
-    listTrail(trail_id: ID!): Trail
-    listUsersInGroup(group_id: ID!): [User]
-    updateUserLocation(user_id: ID!, lat: Float!, long: Float!): User
   }
   type Trail {
     trailID: ID!
@@ -47,9 +34,26 @@ const typeDefs = gql`
     Medium
     Hard
   }
-  type Query {
-    hello: String
-  }
 `;
 
-export default typeDefs;
+// const typeDefs = gql`
+//   input AddUser {
+//     id: ID!
+//     name: String
+//     lat: Float
+//     long: Float
+//   }
+//   type Mutation {
+//     addFavorite(user_id: ID!, new_favorite: ID!): Trail
+//     deleteFavorite(user_id: ID!, new_favorite: ID!): Trail
+//     addUserToGroup(group_id: ID!, user_id: ID!): [User]
+//   }
+//   type Query {
+//     listTrails: [Trail]
+//     listTrail(trail_id: ID!): Trail
+//     listUsersInGroup(group_id: ID!): [User]
+//     updateUserLocation(user_id: ID!, lat: Float!, long: Float!): User
+//   }
+// `;
+
+module.exports = { typeDefs };
