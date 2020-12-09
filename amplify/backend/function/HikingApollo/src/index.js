@@ -1,30 +1,53 @@
+const { ApolloServer } = require('apollo-server-lambda');
+//const { ApolloServer, gql } = require('apollo-server');
+const axios = require('axios');
+require('dotenv').config();
+
+/* Construct a schema, using GraphQL schema language */
 const { typeDefs } = require('./schema');
-const { trails } = require('./mock/mockTrails');
-const { ApolloServer, gql } = require('apollo-server-lambda');
 
 /* Provide resolver functions for your schema fields */
 const resolvers = {
   Query: {
     hello: () => 'Hello from Apollo!!',
-    listTrails: () => listTrails(),
-  },
-};
 
-const listTrails = () => {
-  // map trails to response
-  return trails.map((val) => {
-    return {
-      trailID: val.id,
-      name: val.name,
-      summary: val.summary,
-      difficulty: val.difficulty,
-      rating: val.stars,
-      num_of_ratings: val.starVotes,
-      length: val.length,
-      ascent: val.ascent,
-      descent: val.descent,
-    };
-  });
+    listTrails: (args) => {
+      const API_URL = 'https://www.hikingproject.com/data/get-trails';
+
+      async function getTrails(lat, long) {
+        let trailResponse = [];
+
+        try {
+          const { data } = await axios.get(API_URL, {
+            params: {
+              key: process.env.HIKING_APP_API_KEY,
+              lat: lat,
+              lon: long,
+            },
+          });
+
+          Object.values(data.trails).forEach((trail) => {
+            trailResponse.push({
+              trailID: trail.id,
+              name: trail.name,
+              summary: trail.summary,
+              difficulty: trail.difficulty,
+              rating: trail.stars,
+              num_of_ratings: trail.starVotes,
+              length: trail.length,
+              ascent: trail.ascent,
+              descent: trail.descent,
+            });
+          });
+
+          return trailResponse;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      return getTrails(args.lat, args.long);
+    },
+  },
 };
 
 const server = new ApolloServer({
