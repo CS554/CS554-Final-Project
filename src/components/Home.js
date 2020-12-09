@@ -344,22 +344,22 @@ const Home = (props) => {
   let cards = null;
   console.log('here');
 
-  const query = gql`
-    {
-      hello
-    }
-  `;
+  // Request trails request reference
 
-  const query2 = gql`
-    {
-      listTrails {
-        trailID
-        summary
-        name
-      }
-    }
-  `;
-  const { isloading, error, data } = useQuery(query2);
+  // const query2 = gql`
+  //   query trails($lat: Float!, $long: Float!) {
+  //     listTrails(lat: $lat, long: $long) {
+  //       trailID
+  //       summary
+  //       name
+  //     }
+  //   }
+  // `;
+  // const lat = 40.783058;
+  // const long = -8.971252;
+  // const { isloading, error, data } = useQuery(query2, {
+  //   variables: { lat: lat, long: long },
+  // });
 
   const location = useGeoLocation();
   console.log(location);

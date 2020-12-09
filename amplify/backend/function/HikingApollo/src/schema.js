@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-lambda');
 const typeDefs = gql`
   type Query {
     hello: String
-    listTrails: [Trail]
+    listTrails(lat: Float!, long: Float!): [Trail]
   }
   type Group {
     groupID: ID!

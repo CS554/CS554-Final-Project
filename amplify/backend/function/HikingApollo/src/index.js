@@ -1,7 +1,7 @@
 const { ApolloServer } = require('apollo-server-lambda');
 //const { ApolloServer, gql } = require('apollo-server');
 const axios = require('axios');
-require('dotenv').config();
+// require('dotenv').config();
 
 /* Construct a schema, using GraphQL schema language */
 const { typeDefs } = require('./schema');
@@ -11,7 +11,7 @@ const resolvers = {
   Query: {
     hello: () => 'Hello from Apollo!!',
 
-    listTrails: (args) => {
+    listTrails: (_, args) => {
       const API_URL = 'https://www.hikingproject.com/data/get-trails';
 
       async function getTrails(lat, long) {
