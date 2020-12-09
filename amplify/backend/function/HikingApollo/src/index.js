@@ -95,7 +95,7 @@ const resolvers = {
 					console.log(e);
 				}
 			}
-			return getTrails('40.783058', '-73.971252'); // TODO add arguements
+			return getTrails(args.lat, args.long); // TODO add arguements
 		}
 	}
 };
