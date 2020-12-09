@@ -15,6 +15,21 @@ import Groups from './components/Groups'
 
 
 
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+import ApolloClient, { gql } from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+
+Amplify.configure(awsconfig);
+
+const { endpoint } = awsconfig.aws_cloud_logic_custom[0];
+
+/* Create client using the GraphQL endpoint  */
+const client = new ApolloClient({
+  uri: endpoint + '/graphql',
+});
+
 function App() {
   return (
     <AuthProvider>
@@ -37,4 +52,12 @@ function App() {
   );
 }
 
-export default App;
+const AppWithProvider = () => (
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+);
+
+export default AppWithProvider;
+
+// export default App;

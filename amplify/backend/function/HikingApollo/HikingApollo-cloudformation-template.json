@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-hikingapp-dev-215354-deployment",
-          "S3Key": "amplify-builds/HikingApollo-767776446d334a736359-build.zip"
+          "S3Key": "amplify-builds/HikingApollo-39415a7647317a396f34-build.zip"
         }
       }
     },
