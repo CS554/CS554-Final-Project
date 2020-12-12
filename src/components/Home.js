@@ -15,6 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { Link } from "react-router-dom";
 import { useQuery, gql } from '@apollo/react-hooks';
 
 let DefaultIcon = L.icon({
@@ -382,34 +383,37 @@ const Home = (props) => {
   console.log(trails);
   cards = trails.map((trail) => {
     return (
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={trail.imgMedium}
-              title={trail.name}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {trail.name}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {trail.summary}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    );
+              <Grid item xs={12} sm={6} md={4} key={trail.id}>
+                <Card className={classes.root} key={trail.id}>
+                  <CardActionArea>
+                    <Link to={`/trails/${trail.id}`}>
+                      <CardMedia
+                        className={classes.media}
+                        image={trail.image}
+                        title={trail.name}
+                        alt="trail card"
+                      />
+                    </Link>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {trail.name}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {trail.summary}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                  </Button>
+                    <Button size="small" color="primary">
+                      Learn More
+                  </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
   });
   return (
     <>
