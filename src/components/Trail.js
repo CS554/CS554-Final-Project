@@ -2,54 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+//import CircularProgress from '@material-ui/core/CircularProgress';
 import '../App.css';
 import Comments from './Comments';
 import TrailData from './TrailData';
+import { useQuery, gql } from '@apollo/react-hooks';
 
 function Trail(props) {
-	console.log(props.match.params.id);
-
 	const [trailData, setTrailData] = useState([]);
-	const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(true);
+
+	const query = gql`
+		query getTrail($trailID: [ID]!) {
+			getTrailsById(trailId: $trailID) {
+				name
+				summary
+				img
+				length
+				rating
+				num_of_ratings
+				difficulty
+				ascent
+			}
+		}
+	`;
+
+	/* TODO need to add 
+					conditionStatus
+				conditionDetails
+				conditionDate
+
+	to query */
+
+	const { isloading, error, data, refetch } = useQuery(query, {
+		variables: {
+			trailID: props.match.params.id
+		}
+	});
 
 	useEffect(() => {
 		async function getTrail() {
-			let trail = {
-				id: 7011192,
-				name: 'Boulder Skyline Traverse',
-				type: 'Recommended Route',
-				summary: 'The classic long mountain route in Boulder.',
-				difficulty: 'black',
-				stars: 4.7,
-				starVotes: 93,
-				location: 'Superior, Colorado',
-				url:
-					'https://www.hikingproject.com/trail/7011192/boulder-skyline-traverse',
-				imgSqSmall:
-					'https://cdn2.apstatic.com/photos/hike/7039883_sqsmall_1555092747.jpg',
-				imgSmall:
-					'https://cdn2.apstatic.com/photos/hike/7039883_small_1555092747.jpg',
-				imgSmallMed:
-					'https://cdn2.apstatic.com/photos/hike/7039883_smallMed_1555092747.jpg',
-				imgMedium:
-					'https://cdn2.apstatic.com/photos/hike/7039883_medium_1555092747.jpg',
-				length: 17.3,
-				ascent: 5345,
-				descent: -5420,
-				high: 8433,
-				low: 5425,
-				longitude: -105.2582,
-				latitude: 39.9388,
-				conditionStatus: 'All Clear',
-				conditionDetails: 'Dry',
-				conditionDate: '2020-09-16 14:37:11'
-			};
-			setTrailData(trail);
-			setLoading(false);
+			if (data) {
+				setTrailData(Object.values(data)[0][0]);
+			}
 		}
 		getTrail();
-	}, [JSON.stringify(trailData)]);
+	}, [data]);
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -60,6 +57,8 @@ function Trail(props) {
 
 	const classes = useStyles();
 
+	console.log(error);
+
 	return (
 		<div>
 			<br />
@@ -69,14 +68,23 @@ function Trail(props) {
 			</h1>
 			<Grid container spacing={3}>
 				<Grid item xs={3}>
-					<TrailData />
+					<TrailData
+						length={trailData.length}
+						rating={trailData.rating}
+						num_of_ratings={trailData.num_of_ratings}
+						difficulty={trailData.difficulty}
+						ascent={trailData.ascent}
+						conditionStatus={trailData.conditionStatus}
+						conditionDetails={trailData.conditionDetails}
+						conditionDate={trailData.conditionDate}
+					/>
 				</Grid>
 				<Grid item xs={9}>
 					<Box
 						maxWidth="sm"
 						height="500px"
 						style={{
-							backgroundImage: `url(${trailData.imgMedium})`
+							backgroundImage: `url(${trailData.img})`
 						}}
 					>
 						<br />
