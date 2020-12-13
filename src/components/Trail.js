@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Box,
 	Container,
@@ -20,47 +20,62 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import TextField from '@material-ui/core/TextField';
 
+import ApolloClient, { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/client';
+
 import '../App.css';
-
-let trail = {
-	id: 7011192,
-	name: 'Boulder Skyline Traverse',
-	type: 'Recommended Route',
-	summary: 'The classic long mountain route in Boulder.',
-	difficulty: 'black',
-	stars: 4.7,
-	starVotes: 93,
-	location: 'Superior, Colorado',
-	url: 'https://www.hikingproject.com/trail/7011192/boulder-skyline-traverse',
-	imgSqSmall:
-		'https://cdn2.apstatic.com/photos/hike/7039883_sqsmall_1555092747.jpg',
-	imgSmall:
-		'https://cdn2.apstatic.com/photos/hike/7039883_small_1555092747.jpg',
-	imgSmallMed:
-		'https://cdn2.apstatic.com/photos/hike/7039883_smallMed_1555092747.jpg',
-	imgMedium:
-		'https://cdn2.apstatic.com/photos/hike/7039883_medium_1555092747.jpg',
-	length: 17.3,
-	ascent: 5345,
-	descent: -5420,
-	high: 8433,
-	low: 5425,
-	longitude: -105.2582,
-	latitude: 39.9388,
-	conditionStatus: 'All Clear',
-	conditionDetails: 'Dry',
-	conditionDate: '2020-09-16 14:37:11'
-};
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-		maxWidth: 360
-	}
-}));
 
 function Trail(props) {
 	console.log(props.match.params.id);
+
+	const [trailData, setTrailData] = useState([]);
+	const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		async function getTrail() {
+			let trail = {
+				id: 7011192,
+				name: 'Boulder Skyline Traverse',
+				type: 'Recommended Route',
+				summary: 'The classic long mountain route in Boulder.',
+				difficulty: 'black',
+				stars: 4.7,
+				starVotes: 93,
+				location: 'Superior, Colorado',
+				url:
+					'https://www.hikingproject.com/trail/7011192/boulder-skyline-traverse',
+				imgSqSmall:
+					'https://cdn2.apstatic.com/photos/hike/7039883_sqsmall_1555092747.jpg',
+				imgSmall:
+					'https://cdn2.apstatic.com/photos/hike/7039883_small_1555092747.jpg',
+				imgSmallMed:
+					'https://cdn2.apstatic.com/photos/hike/7039883_smallMed_1555092747.jpg',
+				imgMedium:
+					'https://cdn2.apstatic.com/photos/hike/7039883_medium_1555092747.jpg',
+				length: 17.3,
+				ascent: 5345,
+				descent: -5420,
+				high: 8433,
+				low: 5425,
+				longitude: -105.2582,
+				latitude: 39.9388,
+				conditionStatus: 'All Clear',
+				conditionDetails: 'Dry',
+				conditionDate: '2020-09-16 14:37:11'
+			};
+			setTrailData(trail);
+			setLoading(false);
+		}
+		getTrail();
+	}, [JSON.stringify(trailData)]);
+
+	const useStyles = makeStyles((theme) => ({
+		root: {
+			width: '100%',
+			maxWidth: 360
+		}
+	}));
 
 	const classes = useStyles();
 
@@ -68,7 +83,7 @@ function Trail(props) {
 		<div>
 			<br />
 			<h1>
-				{trail.name}
+				{trailData.name}
 				<FavoriteBorderIcon />
 			</h1>
 			<Grid container spacing={3}>
@@ -76,14 +91,18 @@ function Trail(props) {
 					<List className={classes.root}>
 						<ListItem>
 							<Rating
-								defaultValue={trail.stars}
+								defaultValue={trailData.stars}
 								precision={0.5}
+							/>
+							<br />
+							<ListItemText
+								secondary={`${trailData.starVotes} ratings`}
 							/>
 						</ListItem>
 						<Divider variant="inset" component="li" />
 						<ListItem>
 							<ListItemText
-								primary={trail.difficulty}
+								primary={trailData.difficulty}
 								secondary="Difficulty"
 							/>
 						</ListItem>
@@ -95,7 +114,7 @@ function Trail(props) {
 								</Avatar>
 							</ListItemAvatar>
 							<ListItemText
-								primary="17.3 miles"
+								primary={`${trailData.length} miles`}
 								secondary="Total Distance"
 							/>
 						</ListItem>
@@ -107,7 +126,7 @@ function Trail(props) {
 								</Avatar>
 							</ListItemAvatar>
 							<ListItemText
-								primary="5345ft"
+								primary={`${trailData.ascent} ft`}
 								secondary="Distance to Ascent"
 							/>
 						</ListItem>
@@ -119,8 +138,8 @@ function Trail(props) {
 								</Avatar>
 							</ListItemAvatar>
 							<ListItemText
-								primary={`${trail.conditionStatus} and ${trail.conditionDetails}`}
-								secondary={`Current Conditions as of ${trail.conditionDate}`}
+								primary={`${trailData.conditionStatus} and ${trailData.conditionDetails}`}
+								secondary={`Current Conditions as of ${trailData.conditionDate}`}
 							/>
 						</ListItem>
 					</List>
@@ -129,13 +148,15 @@ function Trail(props) {
 					<Box
 						maxWidth="sm"
 						height="500px"
-						style={{ backgroundImage: `url(${trail.imgMedium})` }}
+						style={{
+							backgroundImage: `url(${trailData.imgMedium})`
+						}}
 					>
 						<br />
-						<Container maxWidth="70%">
-							<h2>{trail.summary}</h2>
+						<Container>
+							<h2>{trailData.summary}</h2>
 
-							<Paper maxWidth="500px">
+							<Paper>
 								<div>
 									<Chip label="Will" />
 									<h3>This hike is awesome!!</h3>
