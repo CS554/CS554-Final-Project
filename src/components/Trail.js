@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Box,
-	Container,
-	List,
-	ListItem,
-	ListItemText,
-	ListItemAvatar,
-	Chip,
-	Avatar,
-	Divider,
-	Paper,
-	Grid
-} from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CallMadeIcon from '@material-ui/icons/CallMade';
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import TextField from '@material-ui/core/TextField';
-
-import ApolloClient, { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/client';
-
 import '../App.css';
 import Comments from './Comments';
+import TrailData from './TrailData';
 
 function Trail(props) {
 	console.log(props.match.params.id);
@@ -89,61 +69,7 @@ function Trail(props) {
 			</h1>
 			<Grid container spacing={3}>
 				<Grid item xs={3}>
-					<List className={classes.root}>
-						<ListItem>
-							<Rating
-								defaultValue={trailData.stars}
-								precision={0.5}
-							/>
-							<br />
-							<ListItemText
-								secondary={`${trailData.starVotes} ratings`}
-							/>
-						</ListItem>
-						<Divider variant="inset" component="li" />
-						<ListItem>
-							<ListItemText
-								primary={trailData.difficulty}
-								secondary="Difficulty"
-							/>
-						</ListItem>
-						<Divider variant="inset" component="li" />
-						<ListItem>
-							<ListItemAvatar>
-								<Avatar>
-									<DirectionsRunIcon />
-								</Avatar>
-							</ListItemAvatar>
-							<ListItemText
-								primary={`${trailData.length} miles`}
-								secondary="Total Distance"
-							/>
-						</ListItem>
-						<Divider variant="inset" component="li" />
-						<ListItem>
-							<ListItemAvatar>
-								<Avatar>
-									<CallMadeIcon />
-								</Avatar>
-							</ListItemAvatar>
-							<ListItemText
-								primary={`${trailData.ascent} ft`}
-								secondary="Distance to Ascent"
-							/>
-						</ListItem>
-						<Divider variant="inset" component="li" />
-						<ListItem>
-							<ListItemAvatar>
-								<Avatar>
-									<WbSunnyIcon />
-								</Avatar>
-							</ListItemAvatar>
-							<ListItemText
-								primary={`${trailData.conditionStatus} and ${trailData.conditionDetails}`}
-								secondary={`Current Conditions as of ${trailData.conditionDate}`}
-							/>
-						</ListItem>
-					</List>
+					<TrailData />
 				</Grid>
 				<Grid item xs={9}>
 					<Box
