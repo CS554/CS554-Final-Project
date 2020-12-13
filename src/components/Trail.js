@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Grid } from '@material-ui/core';
+import { Button, Paper, Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 //import CircularProgress from '@material-ui/core/CircularProgress';
@@ -65,8 +65,11 @@ function Trail(props) {
 			<h1>
 				{trailData.name}
 				<FavoriteBorderIcon />
+				<Button size="small" color="primary">
+					Share
+				</Button>
 			</h1>
-			<Grid container spacing={3}>
+			<Grid container spacing={1}>
 				<Grid item xs={3}>
 					<TrailData
 						length={trailData.length}
@@ -79,7 +82,7 @@ function Trail(props) {
 						conditionDate={trailData.conditionDate}
 					/>
 				</Grid>
-				<Grid item xs={9}>
+				<Grid item xs={4}>
 					<Box
 						maxWidth="sm"
 						height="500px"
@@ -87,9 +90,15 @@ function Trail(props) {
 							backgroundImage: `url(${trailData.img})`
 						}}
 					>
-						<br />
-						<Comments />
+						<Box m={2} pt={3}>
+							<Paper elevation={3}>
+								<h2>{trailData.summary}</h2>
+							</Paper>
+						</Box>
 					</Box>
+				</Grid>
+				<Grid item xs={5}>
+					<Comments />
 				</Grid>
 			</Grid>
 		</div>
