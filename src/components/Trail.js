@@ -20,8 +20,8 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import TextField from '@material-ui/core/TextField';
 
-import ApolloClient, { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/client';
+//import ApolloClient, { gql } from 'apollo-boost';
+//import { useQuery } from '@apollo/client';
 
 import '../App.css';
 
@@ -29,7 +29,7 @@ function Trail(props) {
 	console.log(props.match.params.id);
 
 	const [trailData, setTrailData] = useState([]);
-	const [error, setError] = useState(false);
+	//const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
