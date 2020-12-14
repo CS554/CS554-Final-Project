@@ -6,6 +6,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import '../../App.css';
 import Comments from './Comments';
 import TrailData from './TrailData';
+import TrailHeader from './TrailHeader';
 import { useQuery, gql } from '@apollo/react-hooks';
 
 function Trail(props) {
@@ -22,6 +23,9 @@ function Trail(props) {
 				num_of_ratings
 				difficulty
 				ascent
+				conditionStatus
+				conditionDetails
+				conditionDate
 				comments {
 					username
 					text
@@ -29,13 +33,6 @@ function Trail(props) {
 			}
 		}
 	`;
-
-	/* TODO need to add 
-					conditionStatus
-				conditionDetails
-				conditionDate
-
-	to query */
 
 	const { isloading, error, data, refetch } = useQuery(query, {
 		variables: {
@@ -61,21 +58,9 @@ function Trail(props) {
 
 	const classes = useStyles();
 
-	console.log(error);
-
 	return (
 		<div>
-			<br />
-			<h1>
-				{trailData.name}
-				<Button size="small" color="primary">
-					<FavoriteBorderIcon />
-				</Button>
-
-				<Button size="small" color="primary">
-					Share
-				</Button>
-			</h1>
+			<TrailHeader name={trailData.name} />
 			<Grid container spacing={1}>
 				<Grid item xs={3}>
 					<TrailData

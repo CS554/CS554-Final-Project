@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, Chip, Paper } from '@material-ui/core';
 import { gql, useMutation } from '@apollo/react-hooks';
+const firebase = require('firebase');
 
 function Comments(props) {
 	const COMMENT_MUTATION = gql`
@@ -33,7 +34,7 @@ function Comments(props) {
 		const { isloading, error, new_data, refetch } = addComment({
 			variables: {
 				trailId: props.trailId,
-				username: 'Currently logged in user',
+				username: firebase.auth().currentUser.displayName,
 				text: newComment
 			}
 		});
