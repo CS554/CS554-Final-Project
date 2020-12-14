@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
 	Paper,
 	List,
@@ -13,9 +13,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import StarRateIcon from '@material-ui/icons/StarRate';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import '../App.css';
 
 function TrailData(props) {
+	const [value, setValue] = React.useState(2);
+
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			width: '100%',
@@ -30,8 +34,19 @@ function TrailData(props) {
 			<Paper elevation={3}>
 				<List className={classes.root}>
 					<ListItem>
-						<ListItemAvatar />
-						<Rating defaultValue={props.rating} precision={0.5} />
+						<ListItemAvatar>
+							<Avatar>
+								<StarRateIcon />
+							</Avatar>
+						</ListItemAvatar>
+
+						<Rating
+							name="simple-controlled"
+							value={props.rating}
+							onChange={(event, newValue) => {
+								setValue(newValue);
+							}}
+						/>
 						<br />
 						<ListItemText
 							secondary={`${props.num_of_ratings} ratings`}
@@ -39,7 +54,11 @@ function TrailData(props) {
 					</ListItem>
 					<Divider variant="inset" component="li" />
 					<ListItem>
-						<ListItemAvatar />
+						<ListItemAvatar>
+							<Avatar>
+								<FitnessCenterIcon />
+							</Avatar>
+						</ListItemAvatar>
 						<ListItemText
 							primary={props.difficulty}
 							secondary="Difficulty"

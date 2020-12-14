@@ -22,6 +22,10 @@ function Trail(props) {
 				num_of_ratings
 				difficulty
 				ascent
+				comments {
+					username
+					text
+				}
 			}
 		}
 	`;
@@ -64,7 +68,10 @@ function Trail(props) {
 			<br />
 			<h1>
 				{trailData.name}
-				<FavoriteBorderIcon />
+				<Button size="small" color="primary">
+					<FavoriteBorderIcon />
+				</Button>
+
 				<Button size="small" color="primary">
 					Share
 				</Button>
@@ -98,7 +105,7 @@ function Trail(props) {
 					</Box>
 				</Grid>
 				<Grid item xs={5}>
-					<Comments />
+					<Comments comments={trailData.comments} />
 				</Grid>
 			</Grid>
 		</div>
