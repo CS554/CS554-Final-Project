@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
-import altIcon from './trail_marker_3.png'
+import altIcon from '../images/trail_marker_3.png'
 import { useQuery, gql } from '@apollo/react-hooks';
 
 let DefaultIcon = L.icon({
