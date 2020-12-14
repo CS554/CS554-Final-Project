@@ -27,10 +27,5 @@
       ]
     }
   },
-  "storage": {
-    "UserTable": {
-      "service": "DynamoDB",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "storage": {}
 }

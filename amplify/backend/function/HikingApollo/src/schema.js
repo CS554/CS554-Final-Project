@@ -6,15 +6,19 @@ const typeDefs = gql`
 		getTrailsById(trailId: [ID]!): [Trail]
 		getUser(userId: ID!): User
 		listUsersInGroup(groupId: ID!): [User]
+		getGroup(groupId: ID!): Group
 	}
 	type Mutation {
 		addFavorite(userId: ID!, newFavorite: ID!): User
 		deleteFavorite(userId: ID!, oldFavorite: ID!): User
 		addUserToGroup(groupId: ID!, userId: ID!): User
-		addComment(trailId: ID!, username: String!, text: String!): [Comment]
+		addComment(trailId: ID!, username: String!, text: String!): Comment
+		createUser(id: ID!, name: String!): User
+		createGroup(id: ID!, name: String!, members: [ID]): Group
 	}
 	type Comment {
 		id: ID!
+		trailId: ID!
 		username: String!
 		text: String!
 	}
@@ -34,6 +38,8 @@ const typeDefs = gql`
 		ascent: Int
 		descent: Int
 		img: String
+		comments: [Comment]
+		# .conditionStatus .conditionDetails .conditionDate
 	}
 	type User {
 		id: ID!
