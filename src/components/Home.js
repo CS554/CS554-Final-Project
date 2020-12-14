@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Map, TileLayer, Marker } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import osm from './osm-providers';
 import useGeoLocation from '../hooks/useGeoLocation';
@@ -16,12 +16,19 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import altIcon from './trail_marker_3.png'
 import { useQuery, gql } from '@apollo/react-hooks';
 
 let DefaultIcon = L.icon({
 	iconUrl: icon,
-	shadowUrl: iconShadow
+	shadowUrl: iconShadow,
 });
+
+let AltIcon = L.icon({
+	iconUrl: altIcon,
+	iconSize: [40, 40],
+});
+
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
@@ -44,11 +51,16 @@ const query2 = gql`
 			summary
 			name
 			img
+			lat
+			long
 		}
 	}
 `;
 
 const Home = (props) => {
+	let imageUrl;
+	let imageDescription;
+	let trailMarkers;
 	const [center, setCenter] = useState({ lat: 0.0, lng: 0.0 });
 	const { isloading, error, data, refetch } = useQuery(query2, {
 		variables: { lat: center.lat, long: center.lng }
@@ -111,6 +123,22 @@ const Home = (props) => {
 				</Grid>
 			);
 		});
+		trailMarkers = data.listTrails.map((trail) => {
+			return (
+				<Marker
+					icon={AltIcon}
+					position={[
+						trail.lat,
+						trail.long
+					]}
+				>
+					<Popup>
+						{trail.name}
+      				</Popup>
+				</Marker>
+			);
+		});
+		console.log(trailMarkers)
 		console.log(newCards);
 		cards = newCards;
 	}
@@ -125,7 +153,10 @@ const Home = (props) => {
 			map.flyTo(
 				[location.coordinates.lat, location.coordinates.lng],
 				ZOOM_LEVEL,
-				{ animate: true }
+				{
+					animate: true,
+					duration: 0.5
+				}
 			);
 			console.log({
 				lat: location.coordinates.lat,
@@ -160,19 +191,26 @@ const Home = (props) => {
 							/>
 
 							{location.loaded && !location.error && (
-								<Marker
-									icon={DefaultIcon}
-									position={[
-										location.coordinates.lat,
-										location.coordinates.lng
-									]}
-								></Marker>
+								<>
+									<Marker
+										icon={DefaultIcon}
+										position={[
+											location.coordinates.lat,
+											location.coordinates.lng
+										]}
+									>
+									<Popup>
+									You are here!
+      								</Popup>
+									</Marker>
+									{trailMarkers}
+								</>
+
 							)}
 						</Map>
 					</div>
 				</div>
 			</div>
-
 			<div className="row my-4">
 				<div className="col d-flex justify-content-center">
 					<button
@@ -188,5 +226,4 @@ const Home = (props) => {
 		</>
 	);
 };
-
 export default Home;
