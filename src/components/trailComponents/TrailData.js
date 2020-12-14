@@ -15,7 +15,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import '../App.css';
+import '../../App.css';
 
 function TrailData(props) {
 	const [value, setValue] = React.useState(2);

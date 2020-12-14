@@ -9,11 +9,9 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { AuthProvider } from './firebase/Auth';
 import PrivateRoute from './components/PrivateRoute';
-import Trail from './components/Trail'
-import Favorites from './components/Favorites'
-import Groups from './components/Groups'
-
-
+import Trail from './components/trailComponents/Trail';
+import Favorites from './components/Favorites';
+import Groups from './components/Groups';
 
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -27,35 +25,43 @@ const { endpoint } = awsconfig.aws_cloud_logic_custom[0];
 
 /* Create client using the GraphQL endpoint  */
 const client = new ApolloClient({
-  uri: endpoint + '/graphql',
+	uri: endpoint + '/graphql'
 });
 
 function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <header className="App-header">
-            <Navigation />
-          </header>
-        </div>
-        <Route exact path="/" component={Landing} />
-        <PrivateRoute path="/home" component={Home} />
-        <PrivateRoute exact path="/profile/:id" component={Account} />
-        <PrivateRoute exact path="/trails/:id" component={Trail}/>
-        <PrivateRoute exact path="/profile/:id/favorites" component={Favorites}/>
-        <PrivateRoute exact path="/profile/:id/groups" component={Groups}/>
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-      </Router>
-    </AuthProvider>
-  );
+	return (
+		<AuthProvider>
+			<Router>
+				<div className="App">
+					<header className="App-header">
+						<Navigation />
+					</header>
+				</div>
+				<Route exact path="/" component={Landing} />
+				<PrivateRoute path="/home" component={Home} />
+				<PrivateRoute exact path="/profile/:id" component={Account} />
+				<PrivateRoute exact path="/trails/:id" component={Trail} />
+				<PrivateRoute
+					exact
+					path="/profile/:id/favorites"
+					component={Favorites}
+				/>
+				<PrivateRoute
+					exact
+					path="/profile/:id/groups"
+					component={Groups}
+				/>
+				<Route path="/signin" component={SignIn} />
+				<Route path="/signup" component={SignUp} />
+			</Router>
+		</AuthProvider>
+	);
 }
 
 const AppWithProvider = () => (
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
+	<ApolloProvider client={client}>
+		<App />
+	</ApolloProvider>
 );
 
 export default AppWithProvider;

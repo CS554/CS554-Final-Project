@@ -2,46 +2,23 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, Chip, Paper } from '@material-ui/core';
+import { gql, useMutation } from '@apollo/react-hooks';
 
 function Comments(props) {
-	const [commentData, setCommentData] = useState(props.comments);
-	const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(true);
+	const COMMENT_MUTATION = gql`
+		mutation addComment($trailId: ID!, $username: String!, $text: String!) {
+			addComment(trailId: $trailId, username: $username, text: $text) {
+				username
+				text
+			}
+		}
+	`;
 
-	useEffect(() => {
-		// 	async function getComments() {
-		// 		const comments = [
-		// 			{
-		// 				id: 1234234,
-		// 				username: 'Will',
-		// 				text: 'This hike is awesome'
-		// 			},
-		// 			{
-		// 				id: 12342342,
-		// 				username: 'Josh',
-		// 				text: 'Comment1'
-		// 			},
-		// 			{
-		// 				id: 969869876,
-		// 				username: 'Amr',
-		// 				text: 'Comment2'
-		// 			},
-		// 			{
-		// 				id: 68769876,
-		// 				username: 'Chran',
-		// 				text: 'Comment3'
-		// 			},
-		// 			{
-		// 				id: 4564654754,
-		// 				username: 'Glen',
-		// 				text: 'Comment 4'
-		// 			}
-		// 		];
-		// 		setCommentData(comments);
-		// 		setLoading(false);
-		// 	}
-		// 	getComments();
-	}, [JSON.stringify(commentData)]);
+	const [commentData, setCommentData] = useState(props.comments);
+	const [newComment, setNewComment] = useState('');
+	//const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [addComment, { data }] = useMutation(COMMENT_MUTATION);
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -51,10 +28,19 @@ function Comments(props) {
 	}));
 
 	const handleSubmit = (event) => {
-		console.log('hello there');
-		//console.log(event.target);
-		//alert('A name was submitted: ' + this.state.value);
 		event.preventDefault();
+
+		const { isloading, error, new_data, refetch } = addComment({
+			variables: {
+				trailId: props.trailId,
+				username: 'Currently logged in user',
+				text: newComment
+			}
+		});
+
+		setNewComment('');
+
+		// TODO: create hook to update commentData with new comment added
 	};
 
 	const classes = useStyles();
@@ -85,6 +71,8 @@ function Comments(props) {
 						<TextField
 							id="standard-basic"
 							label="Add a Comment"
+							value={newComment}
+							onInput={(e) => setNewComment(e.target.value)}
 							multiline
 							rowsMax={4}
 						/>
