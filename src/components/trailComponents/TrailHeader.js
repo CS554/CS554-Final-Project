@@ -70,7 +70,6 @@ function TrailHeader(props) {
 		}
 
 		setFavorite(!isFavorite);
-		console.log('toggle');
 	};
 
 	const useStyles = makeStyles((theme) => ({

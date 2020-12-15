@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, Chip, Paper } from '@material-ui/core';
-import { gql, useMutation } from '@apollo/react-hooks';
+import { useQuery, gql, useMutation } from '@apollo/react-hooks';
 const firebase = require('firebase');
 
 function Comments(props) {
+	const [commentData, setCommentData] = useState([]);
+	const [newComment, setNewComment] = useState('');
+
 	const COMMENT_MUTATION = gql`
 		mutation addComment($trailId: ID!, $username: String!, $text: String!) {
 			addComment(trailId: $trailId, username: $username, text: $text) {
@@ -15,11 +18,26 @@ function Comments(props) {
 		}
 	`;
 
-	const [commentData, setCommentData] = useState(props.comments);
-	const [newComment, setNewComment] = useState('');
+	const GET_COMMENTS = gql`
+		query getTrail($trailID: [ID]!) {
+			getTrailsById(trailId: $trailID) {
+				comments {
+					username
+					text
+				}
+			}
+		}
+	`;
+
 	//const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(true);
-	const [addComment, { data }] = useMutation(COMMENT_MUTATION);
+	// const [loading, setLoading] = useState(true);
+	const [addComment] = useMutation(COMMENT_MUTATION);
+
+	const { isloading, error, data, refetch } = useQuery(GET_COMMENTS, {
+		variables: {
+			trailID: props.trailId
+		}
+	});
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -31,7 +49,7 @@ function Comments(props) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		const { isloading, error, new_data, refetch } = addComment({
+		const { new_data } = addComment({
 			variables: {
 				trailId: props.trailId,
 				username: firebase.auth().currentUser.displayName,
@@ -39,17 +57,33 @@ function Comments(props) {
 			}
 		});
 
-		setNewComment('');
+		setCommentData(
+			commentData.push({
+				username: firebase.auth().currentUser.displayName,
+				text: newComment,
+				__typename: 'Comment'
+			})
+		);
 
-		// TODO: create hook to update commentData with new comment added
+		setNewComment('');
 	};
+
+	useEffect(() => {
+		console.log('This should update commentData');
+		//if (data) {
+		// console.log(props.comments);
+		// console.log(data.getTrailsById);
+		setCommentData(props.comments);
+		// console.log(commentData);
+		//}
+	}, [props.comments]);
 
 	const classes = useStyles();
 
 	return (
 		<div>
-			{props.comments &&
-				props.comments.map(function ({ username, text }) {
+			{commentData &&
+				commentData.map(function ({ username, text }) {
 					return (
 						<Container maxWidth="sm">
 							<Paper elevation={3}>

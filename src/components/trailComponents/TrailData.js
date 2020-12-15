@@ -18,8 +18,6 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import '../../App.css';
 
 function TrailData(props) {
-	const [value, setValue] = React.useState(2);
-
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			width: '100%',
@@ -46,14 +44,13 @@ function TrailData(props) {
 								<StarRateIcon />
 							</Avatar>
 						</ListItemAvatar>
-
-						<Rating
-							name="simple-controlled"
-							value={props.rating}
-							// onChange={(event, newValue) => {
-							// 	setValue(newValue);
-							// }}
-						/>
+						{props.rating && (
+							<Rating
+								name="read-only"
+								value={props.rating}
+								readOnly
+							/>
+						)}
 						<br />
 						<ListItemText
 							secondary={`${props.num_of_ratings} ratings`}
