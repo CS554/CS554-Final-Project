@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import altIcon from '../images/trail_marker_3.png'
+import altTrailImage from '../images/temp_trail_image.jpeg'
 import { useQuery, gql } from '@apollo/react-hooks';
 
 let DefaultIcon = L.icon({
@@ -58,8 +59,8 @@ const query2 = gql`
 `;
 
 const Home = (props) => {
-	let imageUrl;
-	let imageDescription;
+	let inputLat;
+	let inputLong;
 	let trailMarkers;
 	const [center, setCenter] = useState({ lat: 0.0, lng: 0.0 });
 	const { isloading, error, data, refetch } = useQuery(query2, {
@@ -82,6 +83,9 @@ const Home = (props) => {
 
 	if (data?.listTrails) {
 		let newCards = data.listTrails.map((trail) => {
+			if(trail.img == ""){
+				trail.img = altTrailImage
+			}
 			return (
 				<Grid item xs={12} sm={6} md={4} key={trail.id}>
 					<Card className={classes.root} key={trail.id}>
@@ -134,7 +138,7 @@ const Home = (props) => {
 				>
 					<Popup>
 						{trail.name}
-      				</Popup>
+					</Popup>
 				</Marker>
 			);
 		});
@@ -195,12 +199,12 @@ const Home = (props) => {
 									<Marker
 										icon={DefaultIcon}
 										position={[
-											location.coordinates.lat,
-											location.coordinates.lng
+											center.lat,
+											center.lng
 										]}
 									>
-									<Popup>
-									You are here!
+										<Popup>
+											You are here!
       								</Popup>
 									</Marker>
 									{trailMarkers}
@@ -212,6 +216,43 @@ const Home = (props) => {
 				</div>
 			</div>
 			<div className="row my-4">
+				<div className="coordInputs">
+				<form
+					className="form"
+					id="find-location"
+					onSubmit={(e) => {
+						e.preventDefault();
+						setCenter({
+							lat: parseFloat(inputLat.value),
+							lng: parseFloat(inputLong.value)
+						});
+						setCenter((center) => {
+							console.log(center);
+							return center;
+						});
+						refetch()
+						inputLat.value = '';
+						inputLong.value = '';
+					}}
+				>
+					<label for="inputLat">Latitude</label>
+					<input type="text" id="inputLat" name="inputLat" placeholder="Latitude"
+						ref={(node) => {
+							inputLat = node;
+						}}
+						required
+						autoFocus={true}></input>
+
+					<label for="inputLong">Longitude</label>
+					<input type="text" id="inputLong" name="inputLong" placeholder="Longitude"
+						ref={(node) => {
+							inputLong = node;
+						}}
+						required
+						autoFocus={true}></input>
+
+					<input type="submit" value="Submit"></input>
+				</form>
 				<div className="col d-flex justify-content-center">
 					<button
 						className="btn btn-primary"
@@ -220,6 +261,7 @@ const Home = (props) => {
 					>
 						Locate Me
 					</button>
+				</div>
 				</div>
 			</div>
 			<Grid container>{cards}</Grid>
