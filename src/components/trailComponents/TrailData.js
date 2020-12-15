@@ -29,6 +29,13 @@ function TrailData(props) {
 
 	const classes = useStyles();
 
+	const difficulty = {
+		green: 'Easy',
+		blue: 'Intermediate',
+		blueBlack: 'Hard',
+		black: 'Very Hard'
+	};
+
 	return (
 		<div>
 			<Paper elevation={3}>
@@ -43,9 +50,9 @@ function TrailData(props) {
 						<Rating
 							name="simple-controlled"
 							value={props.rating}
-							onChange={(event, newValue) => {
-								setValue(newValue);
-							}}
+							// onChange={(event, newValue) => {
+							// 	setValue(newValue);
+							// }}
 						/>
 						<br />
 						<ListItemText
@@ -60,7 +67,7 @@ function TrailData(props) {
 							</Avatar>
 						</ListItemAvatar>
 						<ListItemText
-							primary={props.difficulty}
+							primary={difficulty[props.difficulty]}
 							secondary="Difficulty"
 						/>
 					</ListItem>
@@ -88,18 +95,23 @@ function TrailData(props) {
 							secondary="Distance to Ascent"
 						/>
 					</ListItem>
-					<Divider variant="inset" component="li" />
-					<ListItem>
-						<ListItemAvatar>
-							<Avatar>
-								<WbSunnyIcon />
-							</Avatar>
-						</ListItemAvatar>
-						<ListItemText
-							primary={`${props.conditionStatus} and ${props.conditionDetails}`}
-							secondary={`Current Conditions as of ${props.conditionDate}`}
-						/>
-					</ListItem>
+					{props.conditionStatus !== 'Unknown' && (
+						<div>
+							<Divider variant="inset" component="li" />
+							<ListItem>
+								<ListItemAvatar>
+									<Avatar>
+										<WbSunnyIcon />
+									</Avatar>
+								</ListItemAvatar>
+
+								<ListItemText
+									primary={`${props.conditionStatus} and ${props.conditionDetails}`}
+									secondary={`Current Conditions as of ${props.conditionDate}`}
+								/>
+							</ListItem>
+						</div>
+					)}
 				</List>
 			</Paper>
 		</div>
