@@ -78,7 +78,7 @@ const Home = (props) => {
 	}, [center]);
 
 	if (isloading || !location.loaded) {
-		return <div>Loading...</div>;
+		return <div className="loading">Loading...</div>;
 	}
 
 	if (data?.listTrails) {

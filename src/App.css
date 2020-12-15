@@ -66,10 +66,16 @@ h2{
     transform: rotate(360deg);
   }
 }
-
+.AccountInfo{
+  margin: 0 auto;
+  text-align: center;
+}
 .navigation {
 }
-
+.loading{
+  margin: 0 auto;
+  text-align: center;
+}
 .navigation ul {
   list-style-type: none;
   margin: 0;
