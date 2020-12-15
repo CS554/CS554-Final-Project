@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Paper, Box, Grid } from '@material-ui/core';
+import { Paper, Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 //import CircularProgress from '@material-ui/core/CircularProgress';
 import '../../App.css';
 import Comments from './Comments';
@@ -60,7 +59,12 @@ function Trail(props) {
 
 	return (
 		<div>
-			<TrailHeader name={trailData.name} />
+			{!isloading && (
+				<TrailHeader
+					name={trailData.name}
+					trailId={props.match.params.id}
+				/>
+			)}
 			<Grid container spacing={1}>
 				<Grid item xs={3}>
 					<TrailData
@@ -90,10 +94,12 @@ function Trail(props) {
 					</Box>
 				</Grid>
 				<Grid item xs={5}>
-					<Comments
-						trailId={props.match.params.id}
-						comments={trailData.comments}
-					/>
+					{!isloading && (
+						<Comments
+							trailId={props.match.params.id}
+							comments={trailData.comments}
+						/>
+					)}
 				</Grid>
 			</Grid>
 		</div>
