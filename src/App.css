@@ -17,6 +17,10 @@
   height: 600px;
   width: 100%;
 }
+.coordInputs {
+  width: 50%;
+  margin: 0 auto;
+}
 
 .App-header {
   background-image: url('./images/hiking\ horizontal.jpeg');
