@@ -21,13 +21,17 @@
   width: 50%;
   margin: 0 auto;
 }
+.MuiAppBar-colorPrimary{
+  color: #fff;
+  background-color: #004d43;
+}
 
 .App-header {
   background-image: url('./images/hiking\ horizontal.jpeg');
 
   background-size: 100% 400px;
   background-repeat: no-repeat;
-  background-color: #282c34;
+  background-color: #004d43;
   height: 300px;
   padding: 20px;
   color: white;
@@ -80,7 +84,10 @@ h2{
 
 .active {
   font-weight: bold;
-  color: red !important;
+  color: #0895c9 !important;
+}
+a{
+  color: #004d43
 }
 
 .error {
