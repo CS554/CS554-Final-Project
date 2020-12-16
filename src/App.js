@@ -39,16 +39,16 @@ function App() {
 				</div>
 				<Route exact path="/" component={Landing} />
 				<PrivateRoute path="/home" component={Home} />
-				<PrivateRoute exact path="/profile/:id" component={Account} />
+				<PrivateRoute exact path="/account" component={Account} />
 				<PrivateRoute exact path="/trails/:id" component={Trail} />
 				<PrivateRoute
 					exact
-					path="/profile/:id/favorites"
+					path="/favorites"
 					component={Favorites}
 				/>
 				<PrivateRoute
 					exact
-					path="/profile/:id/groups"
+					path="/groups"
 					component={Groups}
 				/>
 				<Route path="/signin" component={SignIn} />

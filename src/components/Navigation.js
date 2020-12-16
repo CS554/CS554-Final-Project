@@ -43,7 +43,7 @@ const NavigationAuth = () => {
         <div className = "links">
         <Typography variant="h4">
         <AccountCircleIcon> </AccountCircleIcon>
-        <NavLink exact to="/profile/:id" activeClassName="active">
+        <NavLink exact to="/account" activeClassName="active">
                 Account
               </NavLink>
         </Typography>
@@ -51,7 +51,7 @@ const NavigationAuth = () => {
         <div className = "links">
         <Typography variant="h4">
         <GroupIcon> </GroupIcon>
-        <NavLink exact to="/profile/:id/groups" activeClassName="active">
+        <NavLink exact to="/groups" activeClassName="active">
                 Group
               </NavLink>
         </Typography>
@@ -59,7 +59,7 @@ const NavigationAuth = () => {
         <div className = "links">
       <Typography variant="h4">
       <BookmarkIcon> </BookmarkIcon>
-      <NavLink exact to="/profile/:id/favorites" activeClassName="active">
+      <NavLink exact to="/favorites" activeClassName="active">
               Favorites
             </NavLink>
       </Typography>
