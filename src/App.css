@@ -28,9 +28,11 @@
 
 .MuiAppBar-colorPrimary{
   color: #fff;
-  background-color: #004d43;
+  background-color: #2E3B55;
 }
-
+/* .user{
+  margin-left: 450px;
+} */
 .App-header {
   background-image: url('./images/hiking\ horizontal.jpeg');
 
