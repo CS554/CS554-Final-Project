@@ -111,6 +111,8 @@ const addFavorite = async (userId, newFavorite) => {
 		Get(Match(Index('user_by_id'), userId))
 	);
 
+	// TODO make idempotent, don't add favorite twice
+
 	const response = await client.query(
 		Update(ref, {
 			data: {
@@ -167,9 +169,9 @@ const addUserToGroup = async (groupId, userId) => {
 	);
 
 	// check if we're in the group already
-	if (groupDoc.data.members.contains(userId)) {
-		throw new ApolloError('User is already in group', '400');
-	}
+	// if (groupDoc.data.members.contains(userId)) {
+	// 	throw new ApolloError('User is already in group', '400');
+	// }
 
 	// update user
 	const userResponse = await client.query(
@@ -260,7 +262,12 @@ const getTrailsById = async (trailIdArray) => {
 				ascent: trail.ascent,
 				descent: trail.descent,
 				img: trail.imgMedium,
-				comments: commentArray
+				comments: commentArray,
+				lat: trail.latitude,
+				long: trail.longitude,
+				conditionStatus: trail.conditionStatus,
+				conditionDetails: trail.conditionDetails,
+				conditionDate: trail.conditionDate
 			};
 		});
 
@@ -316,7 +323,12 @@ const getTrails = async (lat, long) => {
 				ascent: trail.ascent,
 				descent: trail.descent,
 				img: trail.imgMedium,
-				comments: commentArray
+				comments: commentArray,
+				lat: trail.latitude,
+				long: trail.longitude,
+				conditionStatus: trail.conditionStatus,
+				conditionDetails: trail.conditionDetails,
+				conditionDate: trail.conditionDate
 			};
 		});
 

@@ -10,11 +10,13 @@ const typeDefs = gql`
 	}
 	type Mutation {
 		addFavorite(userId: ID!, newFavorite: ID!): User
-		deleteFavorite(userId: ID!, oldFavorite: ID!): User
+		deleteFavorite(userId: ID!, oldFavorite: ID!): User # FIX
 		addUserToGroup(groupId: ID!, userId: ID!): User
+		# removeuserfromgroup
 		addComment(trailId: ID!, username: String!, text: String!): Comment
 		createUser(id: ID!, name: String!): User
 		createGroup(id: ID!, name: String!, members: [ID]): Group
+		# delete group
 	}
 	type Comment {
 		id: ID!
@@ -39,7 +41,11 @@ const typeDefs = gql`
 		descent: Int
 		img: String
 		comments: [Comment]
-		# .conditionStatus .conditionDetails .conditionDate
+		lat: Float
+		long: Float
+		conditionStatus: String
+		conditionDetails: String
+		conditionDate: String
 	}
 	type User {
 		id: ID!
