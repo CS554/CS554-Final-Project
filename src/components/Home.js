@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import altIcon from '../images/trail_marker_3.png'
 import altTrailImage from '../images/temp_trail_image.jpeg'
 import { useQuery, gql } from '@apollo/react-hooks';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 let DefaultIcon = L.icon({
 	iconUrl: icon,
@@ -78,7 +80,9 @@ const Home = (props) => {
 	}, [center]);
 
 	if (isloading || !location.loaded) {
-		return <div className="loading">Loading...</div>;
+		return (
+			<Loader type="Grid" color="#00BFFF" height={80} width={80} />
+		)
 	}
 
 	if (data?.listTrails) {
