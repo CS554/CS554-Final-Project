@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, Chip, Paper } from '@material-ui/core';
 import { useQuery, gql, useMutation } from '@apollo/react-hooks';
+import { isLeafType } from 'graphql';
 const firebase = require('firebase');
 
 function Comments(props) {
@@ -33,7 +34,7 @@ function Comments(props) {
 	// const [loading, setLoading] = useState(true);
 	const [addComment] = useMutation(COMMENT_MUTATION);
 
-	const { isloading, error, data, refetch } = useQuery(GET_COMMENTS, {
+	const { isLoading, error, data, refetch } = useQuery(GET_COMMENTS, {
 		variables: {
 			trailID: props.trailId
 		}
@@ -49,21 +50,22 @@ function Comments(props) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		const { new_data } = addComment({
+		const { data } = addComment({
 			variables: {
 				trailId: props.trailId,
 				username: firebase.auth().currentUser.displayName,
 				text: newComment
 			}
 		});
+		refetch();
 
-		setCommentData(
-			commentData.push({
-				username: firebase.auth().currentUser.displayName,
-				text: newComment,
-				__typename: 'Comment'
-			})
-		);
+		// setCommentData(
+		// 	commentData.push({
+		// 		username: firebase.auth().currentUser.displayName,
+		// 		text: newComment,
+		// 		__typename: 'Comment'
+		// 	})
+		// );
 
 		setNewComment('');
 	};
@@ -76,16 +78,23 @@ function Comments(props) {
 		setCommentData(props.comments);
 		// console.log(commentData);
 		//}
-	}, [props.comments]);
+	}, [commentData]);
 
 	const classes = useStyles();
 
+	if (isLoading) {
+		return <div>Loading</div>;
+	}
+
 	return (
 		<div>
-			{commentData &&
-				commentData.map(function ({ username, text }) {
+			{data?.getTrailsById &&
+				data.getTrailsById[0].comments.map(function ({
+					username,
+					text
+				}) {
 					return (
-						<Container maxWidth="sm">
+						<Container maxWidth="sm" id={username}>
 							<Paper elevation={3}>
 								<div>
 									<Chip label={username} />
