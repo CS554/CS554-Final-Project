@@ -46,9 +46,10 @@ function TrailData(props) {
 						</ListItemAvatar>
 						{props.rating && (
 							<Rating
-								name="read-only"
+								name="hover-feedback"
+								precision={0.5}
 								value={props.rating}
-								readOnly
+							
 							/>
 						)}
 						<br />

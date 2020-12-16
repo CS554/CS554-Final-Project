@@ -14,12 +14,15 @@ import { AuthContext } from '../firebase/Auth';
 import altTrailImage from '../images/temp_trail_image.jpeg'
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
-
+const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",fontWeight:"bold", fontSize:"50px" };
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 2,
+    
   },
   paper: {
     height: 140,
@@ -81,7 +84,13 @@ function Favorites(props) {
     }
   });
 
-  
+  if(loading || !trailData){
+    return (
+			<div style={style}>
+			<Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
+			</div>
+		)
+  }
 
   // useEffect(() => {
 	// 	console.log('on load useeffect');
@@ -136,6 +145,11 @@ function Favorites(props) {
 			);
     });
     cards = newCards;
+  }
+  else{
+    return(<div style={style}>
+      <p>No trails added in favorites</p>
+      </div>);
   }
   return (
     <>
