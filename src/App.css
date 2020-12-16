@@ -21,6 +21,11 @@
   width: 50%;
   margin: 0 auto;
 }
+
+.links{
+  margin: 10px;
+}
+
 .MuiAppBar-colorPrimary{
   color: #fff;
   background-color: #004d43;
