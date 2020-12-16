@@ -6,6 +6,7 @@ import { useQuery, gql, useMutation } from '@apollo/react-hooks';
 import firebase from 'firebase';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
+import uuid from 'react-uuid';
 
 function Comments(props) {
 	const [newComment, setNewComment] = useState('');
@@ -64,6 +65,10 @@ function Comments(props) {
 
 	const classes = useStyles();
 
+	if (error) {
+		return <div>Unexpected Error: {error}</div>;
+	}
+
 	return (
 		<div>
 			{data?.getTrailsById &&
@@ -72,7 +77,7 @@ function Comments(props) {
 					text
 				}) {
 					return (
-						<Container maxWidth="sm" id={username}>
+						<Container maxWidth="sm" key={uuid()}>
 							<Paper elevation={3}>
 								<div>
 									<Chip label={username} />

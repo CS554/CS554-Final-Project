@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-//import CircularProgress from '@material-ui/core/CircularProgress';
 import '../../App.css';
 import firebase from 'firebase';
 import { useQuery, useMutation, gql } from '@apollo/react-hooks';
@@ -48,7 +46,7 @@ function TrailHeader(props) {
 		if (data) {
 			setFavorite(data.getUser.favorites.includes(props.trailId));
 		}
-	}, [data]);
+	}, [data, props.trailId]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -71,15 +69,6 @@ function TrailHeader(props) {
 
 		setFavorite(!isFavorite);
 	};
-
-	const useStyles = makeStyles((theme) => ({
-		root: {
-			width: '100%',
-			maxWidth: 360
-		}
-	}));
-
-	const classes = useStyles();
 
 	return (
 		<div>

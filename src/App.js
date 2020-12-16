@@ -16,7 +16,7 @@ import Groups from './components/Groups';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 
-import ApolloClient, { gql } from 'apollo-boost';
+import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 Amplify.configure(awsconfig);
@@ -41,16 +41,8 @@ function App() {
 				<PrivateRoute path="/home" component={Home} />
 				<PrivateRoute exact path="/account" component={Account} />
 				<PrivateRoute exact path="/trails/:id" component={Trail} />
-				<PrivateRoute
-					exact
-					path="/favorites"
-					component={Favorites}
-				/>
-				<PrivateRoute
-					exact
-					path="/groups"
-					component={Groups}
-				/>
+				<PrivateRoute exact path="/favorites" component={Favorites} />
+				<PrivateRoute exact path="/groups" component={Groups} />
 				<Route path="/signin" component={SignIn} />
 				<Route path="/signup" component={SignUp} />
 			</Router>

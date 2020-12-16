@@ -16,23 +16,28 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
-import altIcon from '../images/trail_marker_3.png'
-import altTrailImage from '../images/temp_trail_image.jpeg'
+import altIcon from '../images/trail_marker_3.png';
+import altTrailImage from '../images/temp_trail_image.jpeg';
 import { useQuery, gql } from '@apollo/react-hooks';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 let DefaultIcon = L.icon({
 	iconUrl: icon,
-	shadowUrl: iconShadow,
+	shadowUrl: iconShadow
 });
 
 let AltIcon = L.icon({
 	iconUrl: altIcon,
-	iconSize: [40, 40],
+	iconSize: [40, 40]
 });
 
-const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
+const style = {
+	position: 'fixed',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)'
+};
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const useStyles = makeStyles({
@@ -82,15 +87,25 @@ const Home = (props) => {
 	if (isloading || !location.loaded) {
 		return (
 			<div style={style}>
-			<Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
+				<Loader
+					className="Loader"
+					type="Grid"
+					color="#00BFFF"
+					height={150}
+					width={150}
+				/>
 			</div>
-		)
+		);
+	}
+
+	if (error) {
+		return <div>Unexpected Error: {error}</div>;
 	}
 
 	if (data?.listTrails) {
 		let newCards = data.listTrails.map((trail) => {
-			if(trail.img == ""){
-				trail.img = altTrailImage
+			if (trail.img == '') {
+				trail.img = altTrailImage;
 			}
 			return (
 				<Grid item xs={12} sm={6} md={4} key={trail.id}>
@@ -135,20 +150,12 @@ const Home = (props) => {
 		});
 		trailMarkers = data.listTrails.map((trail) => {
 			return (
-				<Marker
-					icon={AltIcon}
-					position={[
-						trail.lat,
-						trail.long
-					]}
-				>
-					<Popup>
-						{trail.name}
-					</Popup>
+				<Marker icon={AltIcon} position={[trail.lat, trail.long]}>
+					<Popup>{trail.name}</Popup>
 				</Marker>
 			);
 		});
-		console.log(trailMarkers)
+		console.log(trailMarkers);
 		console.log(newCards);
 		cards = newCards;
 	}
@@ -204,18 +211,12 @@ const Home = (props) => {
 								<>
 									<Marker
 										icon={DefaultIcon}
-										position={[
-											center.lat,
-											center.lng
-										]}
+										position={[center.lat, center.lng]}
 									>
-										<Popup>
-											You are here!
-      								</Popup>
+										<Popup>You are here!</Popup>
 									</Marker>
 									{trailMarkers}
 								</>
-
 							)}
 						</Map>
 					</div>
@@ -223,51 +224,61 @@ const Home = (props) => {
 			</div>
 			<div className="row my-4">
 				<div className="coordInputs">
-				<form
-					className="form"
-					id="find-location"
-					onSubmit={(e) => {
-						e.preventDefault();
-						setCenter({
-							lat: parseFloat(inputLat.value),
-							lng: parseFloat(inputLong.value)
-						});
-						setCenter((center) => {
-							console.log(center);
-							return center;
-						});
-						refetch()
-						inputLat.value = '';
-						inputLong.value = '';
-					}}
-				>
-					<label for="inputLat">Latitude</label>
-					<input type="text" id="inputLat" name="inputLat" placeholder="Latitude"
-						ref={(node) => {
-							inputLat = node;
+					<form
+						className="form"
+						id="find-location"
+						onSubmit={(e) => {
+							e.preventDefault();
+							setCenter({
+								lat: parseFloat(inputLat.value),
+								lng: parseFloat(inputLong.value)
+							});
+							setCenter((center) => {
+								console.log(center);
+								return center;
+							});
+							refetch();
+							inputLat.value = '';
+							inputLong.value = '';
 						}}
-						required
-						autoFocus={true}></input>
-
-					<label for="inputLong">Longitude</label>
-					<input type="text" id="inputLong" name="inputLong" placeholder="Longitude"
-						ref={(node) => {
-							inputLong = node;
-						}}
-						required
-						autoFocus={true}></input>
-
-					<input type="submit" value="Submit"></input>
-				</form>
-				<div className="col d-flex justify-content-center">
-					<button
-						className="btn btn-primary"
-						onClick={showMyLocation}
-						disabled={!location.loaded}
 					>
-						Locate Me
-					</button>
-				</div>
+						<label for="inputLat">Latitude</label>
+						<input
+							type="text"
+							id="inputLat"
+							name="inputLat"
+							placeholder="Latitude"
+							ref={(node) => {
+								inputLat = node;
+							}}
+							required
+							autoFocus={true}
+						></input>
+
+						<label for="inputLong">Longitude</label>
+						<input
+							type="text"
+							id="inputLong"
+							name="inputLong"
+							placeholder="Longitude"
+							ref={(node) => {
+								inputLong = node;
+							}}
+							required
+							autoFocus={true}
+						></input>
+
+						<input type="submit" value="Submit"></input>
+					</form>
+					<div className="col d-flex justify-content-center">
+						<button
+							className="btn btn-primary"
+							onClick={showMyLocation}
+							disabled={!location.loaded}
+						>
+							Locate Me
+						</button>
+					</div>
 				</div>
 			</div>
 			<Grid container>{cards}</Grid>
