@@ -32,7 +32,7 @@ let AltIcon = L.icon({
 	iconSize: [40, 40],
 });
 
-
+const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const useStyles = makeStyles({
@@ -81,7 +81,9 @@ const Home = (props) => {
 
 	if (isloading || !location.loaded) {
 		return (
-			<Loader type="Grid" color="#00BFFF" height={80} width={80} />
+			<div style={style}>
+			<Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
+			</div>
 		)
 	}
 
