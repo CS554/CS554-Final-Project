@@ -12,6 +12,13 @@ function Trail(props) {
 	const [trailData, setTrailData] = useState([]);
 	const [noTrailError, setNoTrailError] = useState(false);
 
+	const style = {
+		position: 'fixed',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)'
+	};
+
 	const query = gql`
 		query getTrail($trailID: [ID]!) {
 			getTrailsById(trailId: $trailID) {
@@ -19,10 +26,10 @@ function Trail(props) {
 				summary
 				img
 				length
-				ratings{
+				ratings {
 					rating
 				}
-				
+
 				difficulty
 				ascent
 				conditionStatus
@@ -66,9 +73,15 @@ function Trail(props) {
 
 	if (isloading || !trailData.name) {
 		return (
-			<Grid container>
-				<Loader type="Grid" color="#00BFFF" height={80} width={80} />
-			</Grid>
+			<div style={style}>
+				<Loader
+					className="Loader"
+					type="Grid"
+					color="#00BFFF"
+					height={150}
+					width={150}
+				/>
+			</div>
 		);
 	}
 
