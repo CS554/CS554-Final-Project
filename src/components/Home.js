@@ -275,7 +275,7 @@ const Home = (props) => {
 							required
 							autoFocus={true}
 						></input>
-						<Button color="alternate">
+						<Button color="secondary">
 							<input type="submit" value="Submit" />
 						</Button>
 					</form>
