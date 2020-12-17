@@ -252,7 +252,8 @@ const Home = (props) => {
 					>
 						<label htmlFor="inputLat">Latitude</label>
 						<input
-							type="text"
+							type="number" 
+							step="0.0001"
 							id="inputLat"
 							name="inputLat"
 							placeholder="Latitude"
@@ -265,7 +266,8 @@ const Home = (props) => {
 
 						<label htmlFor="inputLong">Longitude</label>
 						<input
-							type="text"
+							type="number" 
+							step="0.0001"
 							id="inputLong"
 							name="inputLong"
 							placeholder="Longitude"
