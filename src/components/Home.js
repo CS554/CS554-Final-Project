@@ -7,14 +7,17 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import {
+	Card,
+	CardActionArea,
+	CardActions,
+	CardContent,
+	CardMedia,
+	Button,
+	Typography,
+	Grid
+} from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
 import altIcon from '../images/trail_marker_3.png';
 import altTrailImage from '../images/temp_trail_image.jpeg';
@@ -271,13 +274,16 @@ const Home = (props) => {
 						<input type="submit" value="Submit"></input>
 					</form>
 					<div className="col d-flex justify-content-center">
-						<button
-							className="btn btn-primary"
+						<Button
+							color="primary"
+							variant="contained"
+							// className="btn btn-primary"
 							onClick={showMyLocation}
 							disabled={!location.loaded}
 						>
+							{' '}
 							Locate Me
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>
