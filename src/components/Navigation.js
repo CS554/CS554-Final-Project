@@ -8,8 +8,15 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
+import HeaderImage from '../images/hiking_horizontal.png';
 
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import {
+	Box,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography
+} from '@material-ui/core';
 
 const Navigation = () => {
 	const { currentUser } = useContext(AuthContext);
@@ -20,9 +27,8 @@ const Navigation = () => {
 
 const NavigationAuth = () => {
 	return (
-		<div>
+		<Box>
 			<nav className="navigation">
-				<Typography variant="h1">Take a Hike </Typography>
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar>
 						<div className="links">
@@ -89,7 +95,7 @@ const NavigationAuth = () => {
 					</Toolbar>
 				</AppBar>
 			</nav>
-		</div>
+		</Box>
 	);
 };
 
