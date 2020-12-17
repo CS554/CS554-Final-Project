@@ -6,17 +6,24 @@ const typeDefs = gql`
 		getTrailsById(trailId: [ID]!): [Trail]
 		getUser(userId: ID!): User
 		listUsersInGroup(groupId: ID!): [User]
-		getGroup(groupId: ID!): Group
+		getGroup(id: ID!): Group
+		getAllGroups: [Group]
 	}
 	type Mutation {
 		addFavorite(userId: ID!, newFavorite: ID!): User
-		deleteFavorite(userId: ID!, oldFavorite: ID!): User # FIX
+		deleteFavorite(userId: ID!, oldFavorite: ID!): User
 		addUserToGroup(groupId: ID!, userId: ID!): User
-		# removeuserfromgroup
+		removeUserFromGroup(groupId: ID!, userId: ID!): User
 		addComment(trailId: ID!, username: String!, text: String!): Comment
 		createUser(id: ID!, name: String!): User
-		createGroup(id: ID!, name: String!, members: [ID]): Group
-		# delete group
+		createGroup(
+			name: String!
+			members: [ID]
+			ownerId: ID
+			description: String
+		): Group
+		deleteGroup(groupId: ID!): Group
+		addRating(userId: ID!, trailId: ID!, rating: Float!): Rating
 	}
 	type Comment {
 		id: ID!
@@ -26,16 +33,16 @@ const typeDefs = gql`
 	}
 	type Group {
 		id: ID!
+		owner: ID
 		name: String
 		members: [ID]
+		description: String
 	}
 	type Trail {
 		id: ID!
 		name: String!
 		summary: String
 		difficulty: String
-		rating: Float!
-		num_of_ratings: Int!
 		length: Float
 		ascent: Int
 		descent: Int
@@ -46,6 +53,12 @@ const typeDefs = gql`
 		conditionStatus: String
 		conditionDetails: String
 		conditionDate: String
+		ratings: [Rating]
+	}
+	type Rating {
+		userId: ID!
+		trailId: ID!
+		rating: Float!
 	}
 	type User {
 		id: ID!

@@ -24,6 +24,8 @@ const {
 	Lambda,
 	Var,
 	Map,
+	Delete,
+	Documents,
 	Function: Fn
 } = faunadb.query;
 
@@ -39,7 +41,10 @@ const resolvers = {
 			return await listUsersInGroup(args.groupId);
 		},
 		getGroup: async (_, args) => {
-			return await getGroup(args.groupId);
+			return await getGroup(args.id);
+		},
+		getAllGroups: async (_, args) => {
+			return await getAllGroups();
 		}
 	},
 	Mutation: {
@@ -47,7 +52,7 @@ const resolvers = {
 			return await addFavorite(args.userId, args.newFavorite);
 		},
 		deleteFavorite: async (_, args) => {
-			return await deleteFavorite(args.userId, args.newFavorite);
+			return await deleteFavorite(args.userId, args.oldFavorite);
 		},
 		addUserToGroup: async (_, args) => {
 			return await addUserToGroup(args.groupId, args.userId);
@@ -59,28 +64,152 @@ const resolvers = {
 			return await createUser(args.id, args.name);
 		},
 		createGroup: async (_, args) => {
-			return await createGroup(args.id, args.name, args.members);
+			return await createGroup(
+				args.name,
+				args.members,
+				args.ownerId,
+				args.description
+			);
+		},
+		removeUserFromGroup: async (_, args) => {
+			return await removeUserFromGroup(args.groupId, args.userId);
+		},
+		deleteGroup: async (_, args) => {
+			return await deleteGroup(args.id);
+		},
+		addRating: async (_, args) => {
+			return await addRating(args.userId, args.trailId, args.rating);
 		}
 	}
 };
 
-const getGroup = async (groupId) => {
-	const client = new faunadb.Client({ secret: process.env.FAUNA_API_KEY });
-	// get a ref to the user
-	const { data } = await client.query(
-		Get(Match(Index('group_by_id'), groupId))
+const addRating = async (userId, trailId, rating) => {
+	const client = new faunadb.Client({
+		secret: process.env.FAUNA_API_KEY
+	});
+	const response = await client.query(
+		Create(Collection('ratings'), {
+			data: {
+				userId: userId,
+				trailId: trailId,
+				rating: rating
+			}
+		})
 	);
+	return response.data;
+};
+
+const deleteGroup = async (id) => {
+	const client = new faunadb.Client({
+		secret: process.env.FAUNA_API_KEY
+	});
+
+	// get group
+	const { ref } = await client.query(Get(Match(Index('group_by_id'), id)));
+
+	// delete
+	const { data } = await client.query(Delete(ref));
+
+	// delete group from users
+
 	return data;
 };
 
-const createGroup = async (id, name, members = []) => {
+const removeUserFromGroup = async (groupId, userId) => {
+	const client = new faunadb.Client({
+		secret: process.env.FAUNA_API_KEY
+	});
+
+	// get a ref to the user
+	const userDoc = await client.query(Get(Match(Index('user_by_id'), userId)));
+
+	// get a ref to the group
+	const groupDoc = await client.query(
+		Get(Match(Index('group_by_id'), groupId))
+	);
+
+	// check if we're in the group already
+	// if (groupDoc.data.members.contains(userId)) {
+	// 	throw new ApolloError('User is already in group', '400');
+	// }
+
+	// remove group from user
+	let groupArray = userDoc.data.groups;
+	let newUserGroups = [];
+
+	for (let i = groupArray.length - 1; i >= 0; i--) {
+		if (groupArray[i] !== groupId) {
+			newUserGroups.push(groupArray[i]);
+		}
+	}
+
+	// remove user from group
+	let userArray = groupDoc.data.members;
+	let newGroupMembers = [];
+
+	for (let i = userArray.length - 1; i >= 0; i--) {
+		if (userArray[i] !== userId) {
+			newGroupMembers.push(userArray[i]);
+		}
+	}
+
+	// update user
+	const userResponse = await client.query(
+		Update(userDoc.ref, {
+			data: {
+				groups: [...newUserGroups]
+			}
+		})
+	);
+
+	// update group
+	const groupResponse = await client.query(
+		Update(groupDoc.ref, {
+			data: {
+				members: [...newGroupMembers]
+			}
+		})
+	);
+
+	return userResponse.data;
+};
+
+const getAllGroups = async () => {
 	const client = new faunadb.Client({ secret: process.env.FAUNA_API_KEY });
+	// get a ref to the user
+	const { data } = await client.query(
+		Map(
+			Paginate(Documents(Collection('groups'))),
+			Lambda((x) => Get(x))
+		)
+	);
+
+	let response = [];
+
+	data.forEach((element) => {
+		response.push(element.data);
+	});
+	return response;
+};
+
+const getGroup = async (id) => {
+	const client = new faunadb.Client({ secret: process.env.FAUNA_API_KEY });
+	// get a ref to the user
+	const { data } = await client.query(Get(Match(Index('group_by_id'), id)));
+	return data;
+};
+
+const createGroup = async (name, members = [], ownerId, description) => {
+	const client = new faunadb.Client({ secret: process.env.FAUNA_API_KEY });
+	const id = uuidv4();
 	const response = await client.query(
 		Create(Collection('groups'), {
 			data: {
 				id: id,
+				ownerId: ownerId,
 				name: name,
-				members: members
+				members: members,
+				description: description
 			}
 		})
 	);
@@ -125,7 +254,6 @@ const addFavorite = async (userId, newFavorite) => {
 };
 
 const deleteFavorite = async (userId, oldFavorite) => {
-	// Not working right now
 	const client = new faunadb.Client({ secret: process.env.FAUNA_API_KEY });
 
 	// get a ref to the user
@@ -134,10 +262,11 @@ const deleteFavorite = async (userId, oldFavorite) => {
 	);
 
 	let favArray = data.favorites;
+	let resultArray = [];
 
 	for (let i = favArray.length - 1; i >= 0; i--) {
-		if (favArray[i] === oldFavorite) {
-			favArray.splice(i, 1);
+		if (favArray[i] !== oldFavorite) {
+			resultArray.push(favArray[i]);
 		}
 	}
 
@@ -146,7 +275,7 @@ const deleteFavorite = async (userId, oldFavorite) => {
 			data: {
 				id: data.id,
 				name: data.name,
-				favorites: [...favArray],
+				favorites: [...resultArray],
 				groups: data.groups
 			}
 		})
@@ -250,14 +379,13 @@ const getTrailsById = async (trailIdArray) => {
 
 		let trailResponsePromises = data.trails.map(async (trail) => {
 			const commentArray = await getComments(trail.id.toString(), client);
+			const ratingsArray = await getRatings(trail.id.toString(), client);
 
 			return {
 				id: trail.id,
 				name: trail.name,
 				summary: trail.summary,
 				difficulty: trail.difficulty,
-				rating: trail.stars,
-				num_of_ratings: trail.starVotes,
 				length: trail.length,
 				ascent: trail.ascent,
 				descent: trail.descent,
@@ -267,7 +395,8 @@ const getTrailsById = async (trailIdArray) => {
 				long: trail.longitude,
 				conditionStatus: trail.conditionStatus,
 				conditionDetails: trail.conditionDetails,
-				conditionDate: trail.conditionDate
+				conditionDate: trail.conditionDate,
+				ratings: ratingsArray
 			};
 		});
 
@@ -311,13 +440,12 @@ const getTrails = async (lat, long) => {
 
 		let trailResponsePromises = data.trails.map(async (trail) => {
 			const commentArray = await getComments(trail.id.toString(), client);
+			const ratingsArray = await getRatings(trail.id.toString(), client);
 
 			return {
 				id: trail.id,
 				name: trail.name,
 				summary: trail.summary,
-				difficulty: trail.difficulty,
-				rating: trail.stars,
 				num_of_ratings: trail.starVotes,
 				length: trail.length,
 				ascent: trail.ascent,
@@ -328,7 +456,8 @@ const getTrails = async (lat, long) => {
 				long: trail.longitude,
 				conditionStatus: trail.conditionStatus,
 				conditionDetails: trail.conditionDetails,
-				conditionDate: trail.conditionDate
+				conditionDate: trail.conditionDate,
+				ratings: ratingsArray
 			};
 		});
 
@@ -337,6 +466,25 @@ const getTrails = async (lat, long) => {
 	} catch (e) {
 		console.log(e);
 	}
+};
+
+const getRatings = async (id, client) => {
+	const { data } = await client.query(
+		Map(
+			Paginate(Match(Index('get_ratings_by_trailId'), id)),
+			Lambda('X', Get(Var('X')))
+		)
+	);
+
+	let ratingArray = [];
+
+	if (data) {
+		ratingArray = data.map((entry) => {
+			return entry.data;
+		});
+	}
+
+	return ratingArray;
 };
 
 const getComments = async (id, client) => {
