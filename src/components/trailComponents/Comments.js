@@ -80,7 +80,11 @@ function Comments(props) {
 						<Container maxWidth="sm" key={uuid()}>
 							<Paper elevation={3}>
 								<div>
-									<Chip label={username} />
+									<Chip
+										label={username}
+										size="small"
+										variant="outlined"
+									/>
 									<h3>{text}</h3>
 								</div>
 							</Paper>

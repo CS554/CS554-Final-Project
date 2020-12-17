@@ -4,6 +4,7 @@ import '../App.css';
 import ChangePassword from './ChangePassword';
 import firebase from 'firebase';
 import AccountImage from '../images/Account_Image.png';
+import { Container, Typography } from '@material-ui/core';
 
 function Account() {
 	console.log(firebase.auth().currentUser);
@@ -12,16 +13,18 @@ function Account() {
 			<div>
 				<h2>Account Page</h2>
 				<img src={AccountImage} alt="user"></img>
-				<p className="AccountInfo">
-					Display Name: {firebase.auth().currentUser.displayName}
-				</p>
+				<Typography variant="h3" className="AccountInfo">
+					{firebase.auth().currentUser.displayName}
+				</Typography>
 				<br />
-				<p className="AccountInfo">
-					email: {firebase.auth().currentUser.email}
-				</p>
-				<br></br>
-				<ChangePassword />
-				<SignOutButton />
+				<Typography variant="h4" className="AccountInfo">
+					{firebase.auth().currentUser.email}
+				</Typography>
+				<br />
+				<Container className="AccountInfo">
+					<ChangePassword />
+					<SignOutButton />
+				</Container>
 			</div>
 		</>
 	);
