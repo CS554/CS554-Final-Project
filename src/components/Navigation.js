@@ -21,8 +21,9 @@ const Navigation = () => {
 const NavigationAuth = () => {
 	return (
 		<div>
+			<Typography variant="h1">Take a Hike </Typography>
 			<nav className="navigation">
-				<Typography variant="h1">Take a Hike </Typography>
+				
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar>
 						<div className="links">
@@ -34,7 +35,7 @@ const NavigationAuth = () => {
 							</Typography>
 						</div>
 						<div className="links">
-							<Typography variant="h4">
+							<Typography variant="h2">
 								<HomeIcon> </HomeIcon>
 								<NavLink
 									exact
@@ -46,7 +47,7 @@ const NavigationAuth = () => {
 							</Typography>
 						</div>
 						<div className="links">
-							<Typography variant="h4">
+							<Typography variant="h2">
 								<AccountCircleIcon> </AccountCircleIcon>
 								<NavLink
 									exact
@@ -58,7 +59,7 @@ const NavigationAuth = () => {
 							</Typography>
 						</div>
 						<div className="links">
-							<Typography variant="h4">
+							<Typography variant="h2">
 								<GroupIcon> </GroupIcon>
 								<NavLink
 									exact
@@ -70,7 +71,7 @@ const NavigationAuth = () => {
 							</Typography>
 						</div>
 						<div className="links">
-							<Typography variant="h4">
+							<Typography variant="h2">
 								<BookmarkIcon> </BookmarkIcon>
 								<NavLink
 									exact
@@ -82,7 +83,7 @@ const NavigationAuth = () => {
 							</Typography>
 						</div>
 						<div className="user">
-							<Typography variant="h6">
+							<Typography variant="h2">
 								Hi {firebase.auth().currentUser.displayName}
 							</Typography>
 						</div>

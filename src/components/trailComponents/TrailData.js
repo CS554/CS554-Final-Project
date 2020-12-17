@@ -49,6 +49,7 @@ function TrailData(props) {
 								name="hover-feedback"
 								precision={0.5}
 								value={props.ratings}
+							
 							/>
 						)}
 						<br />
