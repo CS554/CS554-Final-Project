@@ -8,9 +8,16 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
-import { useQuery, gql } from '@apollo/react-hooks';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import { PassThrough } from 'nodemailer/lib/xoauth2';
+import HeaderImage from '../images/hiking_horizontal.png';
+
+import {
+	Box,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography
+} from '@material-ui/core';
+
 
 const Navigation = () => {
   const { currentUser } = useContext(AuthContext);
@@ -20,44 +27,16 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
-
-  const GET_USER = gql`
-    query($userId:ID!) {
-      getUser(userId:$userId){
-        name
-        }
-    }`;
-  console.log(firebase.auth().currentUser)
-  const userID = firebase.auth().currentUser.uid
-  const { isloading, error, data } = useQuery(GET_USER, {
-    variables: {
-      userId: userID,
-    }
-  });
-
-  if (isloading) {
-    return (
-      <div>Loading</div>
-    ) 
-  } else if(data == undefined){
-
-    console.log('Loading')
-    return (
-      <div>Loading</div>
-    )
-  } else{
-    console.log(data.getUser.name)
-  return (
-    <div>
-      <nav className="navigation">
-        <Typography variant="h1">Take a Hike </Typography>
-        <AppBar position="relative" style={{ background: '#2E3B55' }}>
-          <Toolbar>
-            <div className="links">
-              <Typography variant="h4">
-                <StarIcon> </StarIcon>
-                <NavLink exact to="/" activeClassName="active">
-                  Landing
+	return (
+		<Box>
+			<nav className="navigation">
+				<AppBar position="relative" style={{ background: '#2E3B55' }}>
+					<Toolbar>
+						<div className="links">
+							<Typography variant="h4">
+								<StarIcon> </StarIcon>
+								<NavLink exact to="/" activeClassName="active">
+									Landing
 								</NavLink>
               </Typography>
             </div>
@@ -107,19 +86,20 @@ const NavigationAuth = () => {
                 >
                   Favorites
 								</NavLink>
-              </Typography>
-            </div>
-            <div className="user">
-              <Typography variant="h6">
-                Hi {data.getUser.name}
-              </Typography>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </nav>
-    </div>
-  );
-}};
+
+							</Typography>
+						</div>
+						<div className="user">
+							<Typography variant="h6">
+								Hi {firebase.auth().currentUser.displayName}
+							</Typography>
+						</div>
+					</Toolbar>
+				</AppBar>
+			</nav>
+		</Box>
+	);
+};
 
 const NavigationNonAuth = () => {
   return (

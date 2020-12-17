@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Trail from './components/trailComponents/Trail';
 import Favorites from './components/Favorites';
 import Groups from './components/Groups';
+import HeaderImage from './images/hiking_horizontal.png';
 
 import { Box } from '@material-ui/core';
 
@@ -34,11 +35,19 @@ function App() {
 	return (
 		<AuthProvider>
 			<Router>
-				<div className="App">
-					<Box className="App-header">
-						<Navigation />
-					</Box>
-				</div>
+				<Box
+					height="250px"
+					display="flex"
+					className="App"
+					alignItems="center"
+					justifyContent="center"
+					style={{
+						backgroundImage: `url(${HeaderImage})`
+					}}
+				>
+					<Navigation />
+				</Box>
+
 				<Route exact path="/" component={Landing} />
 				<PrivateRoute path="/home" component={Home} />
 				<PrivateRoute exact path="/account" component={Account} />
