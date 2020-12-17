@@ -44,11 +44,11 @@ function TrailData(props) {
 								<StarRateIcon />
 							</Avatar>
 						</ListItemAvatar>
-						{props.rating && (
+						{props.ratings && (
 							<Rating
 								name="hover-feedback"
 								precision={0.5}
-								value={props.rating}
+								value={props.ratings}
 							/>
 						)}
 						<br />

@@ -19,8 +19,10 @@ function Trail(props) {
 				summary
 				img
 				length
-				rating
-				num_of_ratings
+				ratings{
+					rating
+				}
+				
 				difficulty
 				ascent
 				conditionStatus
@@ -81,8 +83,8 @@ function Trail(props) {
 				<Grid item xs={3}>
 					<TrailData
 						length={trailData.length}
-						rating={trailData.rating}
-						num_of_ratings={trailData.num_of_ratings}
+						ratings={4}
+						num_of_ratings={50}
 						difficulty={trailData.difficulty}
 						ascent={trailData.ascent}
 						conditionStatus={trailData.conditionStatus}
