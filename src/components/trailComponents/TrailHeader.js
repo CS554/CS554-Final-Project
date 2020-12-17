@@ -78,7 +78,7 @@ function TrailHeader(props) {
 				<h1>{props.name}</h1>
 
 				<form onSubmit={handleSubmit}>
-					<label for="favoriteIcon" />
+					<label htmlFor="favoriteIcon" />
 					<Button color="primary" type="submit" id="favoriteIcon">
 						{!isFavorite && <FavoriteBorderIcon />}
 						{isFavorite && <FavoriteIcon />}
