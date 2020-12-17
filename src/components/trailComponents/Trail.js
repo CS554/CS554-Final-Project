@@ -10,6 +10,7 @@ import Loader from 'react-loader-spinner';
 
 function Trail(props) {
 	const [trailData, setTrailData] = useState([]);
+	const [noTrailError, setNoTrailError] = useState(false);
 
 	const query = gql`
 		query getTrail($trailID: [ID]!) {
@@ -42,11 +43,24 @@ function Trail(props) {
 	useEffect(() => {
 		async function getTrail() {
 			if (data) {
-				setTrailData(Object.values(data)[0][0]);
+				if (data.getTrailsById) {
+					setTrailData(Object.values(data)[0][0]);
+				} else {
+					console.log("This trail doesn't exist");
+					setNoTrailError(true);
+				}
 			}
 		}
 		getTrail();
 	}, [data]);
+
+	if (error) {
+		return <div>Error</div>;
+	}
+
+	if (noTrailError) {
+		return <h1>ERROR 404: This Trail does not exist</h1>;
+	}
 
 	if (isloading || !trailData.name) {
 		return (
@@ -54,10 +68,6 @@ function Trail(props) {
 				<Loader type="Grid" color="#00BFFF" height={80} width={80} />
 			</Grid>
 		);
-	}
-
-	if (error) {
-		return <div>Error</div>;
 	}
 
 	return (
