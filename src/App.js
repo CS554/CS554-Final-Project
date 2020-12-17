@@ -14,7 +14,6 @@ import Favorites from './components/Favorites';
 import Groups from './components/Groups';
 
 import { Box } from '@material-ui/core';
-import HeaderImage from './images/hiking horizontal.jpeg';
 
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -36,17 +35,8 @@ function App() {
 		<AuthProvider>
 			<Router>
 				<div className="App">
-					<Box
-						// maxWidth="sm"
-						// height="500px"
-						style={{
-							backgroundImage: HeaderImage
-						}}
-						className="App-header"
-					>
-						{/* <header className="App-header"> */}
+					<Box className="App-header">
 						<Navigation />
-						{/* </header> */}
 					</Box>
 				</div>
 				<Route exact path="/" component={Landing} />
