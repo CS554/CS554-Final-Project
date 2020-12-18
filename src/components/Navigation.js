@@ -28,7 +28,7 @@ const NavigationAuth = () => {
     }`;
   console.log(firebase.auth().currentUser)
   const userID = firebase.auth().currentUser.uid
-  const { isloading, error, data } = useQuery(GET_USER, {
+  const { isloading, data } = useQuery(GET_USER, {
     variables: {
       userId: userID,
     }

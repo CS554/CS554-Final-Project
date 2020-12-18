@@ -1,4 +1,5 @@
-import React ,{ useContext, useEffect,useMutation} from 'react';
+import React ,{ useContext, useEffect} from 'react';
+import { useQuery, gql, useMutation } from '@apollo/react-hooks';
 import {
 	Paper,
 	List,
@@ -16,7 +17,7 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import '../../App.css';
-import { useQuery, gql } from '@apollo/react-hooks';
+
 import { AuthContext } from '../../firebase/Auth';
 
 function TrailData(props) {
@@ -52,9 +53,9 @@ function TrailData(props) {
 			}
 		}
 	`;
-	const UPDATE_RATING= gql`
+	const UPDATE= gql`
 	
-		mutation something($userId:ID!, $trailId: ID!, $rating: Float!) 
+		mutation ($userId:ID!, $trailId: ID!, $rating: Float!) 
 				{
 			addRating(userId:$userId, trailId:$trailId, rating: $rating){
 			userId
@@ -62,10 +63,16 @@ function TrailData(props) {
 			}
 			}
 	`;
-	// const [updateRat] = useMutation(UPDATE_RATING);
+
+	const [updateRat] = useMutation(UPDATE);
+	
+	useEffect(() => {
+		console.log('loaded');
+		reload();
+	}, []);
 	
 
-	const { isloading, error, data } = useQuery(query, {
+	const { isloading, error, data,refetch } = useQuery(query, {
 		variables: {
 			trailID: props.trailID
 		}
@@ -87,7 +94,9 @@ function TrailData(props) {
 
 	//update rating
 	
-
+function reload(){
+	refetch();
+}
 	//
 
 	return (
@@ -106,14 +115,15 @@ function TrailData(props) {
 								precision={0.5}
 								value={calcRating()}
 								onChange={(event, newValue) => {
-									// setValue(newValue);
-									// updateRat({
-									// 	variables: {
-									// 		userId: userID,
-									// 		trailId:props.trailID,
-									// 		rating:newValue
+									
+									updateRat({
+										variables: {
+											userId: userID,
+											trailId:props.trailID,
+											rating:newValue
 											
-									// }});
+									}});
+									reload();
 									console.log(newValue);
 								  }}
 
