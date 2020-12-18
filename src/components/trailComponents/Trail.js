@@ -11,7 +11,6 @@ import Loader from 'react-loader-spinner';
 function Trail(props) {
 	const [trailData, setTrailData] = useState([]);
 	const [noTrailError, setNoTrailError] = useState(false);
-	
 
 	const style = {
 		position: 'fixed',
@@ -79,19 +78,19 @@ function Trail(props) {
 					className="Loader"
 					type="Grid"
 					color="#00BFFF"
-					height={150}
-					width={150}
+					height={60}
+					width={60}
 				/>
 			</div>
 		);
 	}
-	
-	function calcRating(){
-		let finalRating=0
-		trailData.ratings.forEach(key => {
-			finalRating=finalRating+key.rating;
+
+	function calcRating() {
+		let finalRating = 0;
+		trailData.ratings.forEach((key) => {
+			finalRating = finalRating + key.rating;
 		});
-		return finalRating/trailData.ratings.length;
+		return finalRating / trailData.ratings.length;
 	}
 	return (
 		<div>

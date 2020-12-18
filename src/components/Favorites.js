@@ -116,11 +116,10 @@ function Favorites(props) {
 				/>
 			</div>
 		);
-  }
-  if (error || trailError) {
+	}
+	if (error || trailError) {
 		return <div>Error 404: Unexpected Error {error}</div>;
 	}
-
 
 	function reload() {
 		setTimeout(refetch, 1000);

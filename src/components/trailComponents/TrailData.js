@@ -1,4 +1,4 @@
-import React ,{ useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useQuery, gql, useMutation } from '@apollo/react-hooks';
 import {
 	Paper,
@@ -22,7 +22,7 @@ import { AuthContext } from '../../firebase/Auth';
 
 function TrailData(props) {
 	const { currentUser } = useContext(AuthContext);
-	const userID=currentUser.$b.uid
+	const userID = currentUser.$b.uid;
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -44,35 +44,28 @@ function TrailData(props) {
 	const query = gql`
 		query getTrail($trailID: [ID]!) {
 			getTrailsById(trailId: $trailID) {
-				
 				ratings {
 					rating
 				}
-
-				
 			}
 		}
 	`;
-	const UPDATE= gql`
-	
-		mutation ($userId:ID!, $trailId: ID!, $rating: Float!) 
-				{
-			addRating(userId:$userId, trailId:$trailId, rating: $rating){
-			userId
-			
+	const UPDATE = gql`
+		mutation($userId: ID!, $trailId: ID!, $rating: Float!) {
+			addRating(userId: $userId, trailId: $trailId, rating: $rating) {
+				userId
 			}
-			}
+		}
 	`;
 
 	const [updateRat] = useMutation(UPDATE);
-	
+
 	useEffect(() => {
 		console.log('loaded');
 		reload();
 	}, []);
-	
 
-	const { isloading, error, data,refetch } = useQuery(query, {
+	const { isloading, error, data, refetch } = useQuery(query, {
 		variables: {
 			trailID: props.trailID
 		}
@@ -82,21 +75,20 @@ function TrailData(props) {
 		return <div>Error</div>;
 	}
 
-
-	function calcRating(){
-		let finalRating=0
-		data.getTrailsById[0].ratings.forEach(key => {
-			finalRating=finalRating+key.rating;
+	function calcRating() {
+		let finalRating = 0;
+		data.getTrailsById[0].ratings.forEach((key) => {
+			finalRating = finalRating + key.rating;
 		});
-		return finalRating/data.getTrailsById[0].ratings.length;
+		return finalRating / data.getTrailsById[0].ratings.length;
 	}
 	//
 
 	//update rating
-	
-function reload(){
-	refetch();
-}
+
+	function reload() {
+		refetch();
+	}
 	//
 
 	return (
@@ -115,20 +107,16 @@ function reload(){
 								precision={0.5}
 								value={calcRating()}
 								onChange={(event, newValue) => {
-									
 									updateRat({
 										variables: {
 											userId: userID,
-											trailId:props.trailID,
-											rating:newValue
-											
-									}});
+											trailId: props.trailID,
+											rating: newValue
+										}
+									});
 									reload();
 									console.log(newValue);
-								  }}
-
-								  
-							
+								}}
 							/>
 						)}
 						<br />

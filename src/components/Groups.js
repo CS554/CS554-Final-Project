@@ -1,17 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/react-hooks';
 import { AuthContext } from '../firebase/Auth';
-import Modal from '@material-ui/core/Modal';
+import {
+	Modal,
+	Card,
+	CardActionArea,
+	CardActions,
+	CardContent,
+	CardMedia,
+	Button,
+	Typography,
+	Grid
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import ShareModal from './Modal/ShareModal';
 

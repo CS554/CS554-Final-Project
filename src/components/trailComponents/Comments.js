@@ -78,13 +78,9 @@ function Comments(props) {
 					text
 				}) {
 					return (
-						
-						
-
-							<Container maxWidth="sm" key={uuid()}>
+						<Container maxWidth="sm" key={uuid()}>
 							<Paper elevation={3}>
 								<div>
-								
 									<Chip
 										label={username}
 										size="small"
@@ -131,10 +127,8 @@ function Comments(props) {
 							</Button>
 						</form>
 					)}
-					
 				</Paper>
 			</Container>
-			
 		</div>
 	);
 }

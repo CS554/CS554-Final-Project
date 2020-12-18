@@ -4,10 +4,7 @@ import { gql, useMutation } from '@apollo/react-hooks';
 import { doCreateUserWithEmailAndPassword } from '../firebase/FirebaseFunctions';
 import { AuthContext } from '../firebase/Auth';
 import SocialSignIn from './SocialSignIn';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { Box, Button, TextField, makeStyles } from '@material-ui/core';
 
 const ADD_USER = gql`
 	mutation createUser($id: ID!, $name: String!) {
@@ -20,19 +17,19 @@ const ADD_USER = gql`
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-	  '& > *': {
-		margin: theme.spacing(1),
-		width: '25ch',
-	  },
-	},
-  }));
-  
+		'& > *': {
+			margin: theme.spacing(1),
+			width: '25ch'
+		}
+	}
+}));
+
 const defaultProps = {
 	bgcolor: 'background.paper',
 	m: 1,
 	border: 1.5,
-	style: { width: '20rem', height: '39rem' , padding:"50px" },
-  };
+	style: { width: '20rem', height: '39rem', padding: '50px' }
+};
 
 function SignUp() {
 	const classes = useStyles();
@@ -74,17 +71,29 @@ function SignUp() {
 	if (currentUser) {
 		return <Redirect to="/home" />;
 	}
-	
+
 	return (
 		<Box display="flex" justifyContent="center">
-    <Box borderColor="primary.main"{...defaultProps}>
-		<div>
-			<h1>Sign up</h1>
-			{pwMatch && <h4 className="error">{pwMatch}</h4>}
-			<form onSubmit={(e) => handleSignUp(e, addUser)} className={classes.root} noValidate autoComplete="off">
-				{/* //<div className="form-group"> */}
-				<TextField required id="displayName" name="displayName" label="Name" variant="outlined" type="text"  />
-				{/* <label>
+			<Box borderColor="primary.main" {...defaultProps}>
+				<div>
+					<h1>Sign up</h1>
+					{pwMatch && <h4 className="error">{pwMatch}</h4>}
+					<form
+						onSubmit={(e) => handleSignUp(e, addUser)}
+						className={classes.root}
+						noValidate
+						autoComplete="off"
+					>
+						{/* //<div className="form-group"> */}
+						<TextField
+							required
+							id="displayName"
+							name="displayName"
+							label="Name"
+							variant="outlined"
+							type="text"
+						/>
+						{/* <label>
 						Name:
 						<input
 							className="form-control"
@@ -94,10 +103,17 @@ function SignUp() {
 							placeholder="Name"
 						/>
 					</label> */}
-				{/* //</div> */}
-				{/* <div className="form-group"> */}
-				<TextField required id="email"  name="email" label="Email" variant="outlined" type="email"  />
-					{/* <label>
+						{/* //</div> */}
+						{/* <div className="form-group"> */}
+						<TextField
+							required
+							id="email"
+							name="email"
+							label="Email"
+							variant="outlined"
+							type="email"
+						/>
+						{/* <label>
 						Email:
 						<input
 							className="form-control"
@@ -108,9 +124,16 @@ function SignUp() {
 						/>
 					</label>
 				</div> */}
-				{/* <div className="form-group">
+						{/* <div className="form-group">
 					<label> */}
-					<TextField required id="passwordOne"  name="passwordOne" type="password" label="Password" variant="outlined"   />
+						<TextField
+							required
+							id="passwordOne"
+							name="passwordOne"
+							type="password"
+							label="Password"
+							variant="outlined"
+						/>
 						{/* Password:
 						<input
 							className="form-control"
@@ -122,8 +145,15 @@ function SignUp() {
 						/>
 					</label>
 				</div> */}
-				<TextField required id="passwordTwo"  name="passwordTwo" type="password" label="Confirm Password" variant="outlined"   />
-				{/* <div className="form-group">
+						<TextField
+							required
+							id="passwordTwo"
+							name="passwordTwo"
+							type="password"
+							label="Confirm Password"
+							variant="outlined"
+						/>
+						{/* <div className="form-group">
 					<label>
 						Confirm Password:
 						<input
@@ -135,14 +165,18 @@ function SignUp() {
 						/>
 					</label>
 				</div> */}
-				<Button variant="contained" color="primary" type="submit">
-					Sign Up
-				</Button>
-			</form>
-			<br />
-			<SocialSignIn />
-		</div>
-		</Box>
+						<Button
+							variant="contained"
+							color="primary"
+							type="submit"
+						>
+							Sign Up
+						</Button>
+					</form>
+					<br />
+					<SocialSignIn />
+				</div>
+			</Box>
 		</Box>
 	);
 }

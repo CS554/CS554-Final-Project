@@ -20,47 +20,42 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
-  const GET_USER = gql`
-    query($userId:ID!) {
-      getUser(userId:$userId){
-        name
-        }
-    }`;
-  console.log(firebase.auth().currentUser)
-  const userID = firebase.auth().currentUser.uid
-  const { isloading, data } = useQuery(GET_USER, {
-    variables: {
-      userId: userID,
-    }
-  });
+	const GET_USER = gql`
+		query($userId: ID!) {
+			getUser(userId: $userId) {
+				name
+			}
+		}
+	`;
+	console.log(firebase.auth().currentUser);
+	const userID = firebase.auth().currentUser.uid;
+	const { isloading, data } = useQuery(GET_USER, {
+		variables: {
+			userId: userID
+		}
+	});
 
-  if (isloading) {
-    return (
-      <div>Loading</div>
-    ) 
-  } else if(data === undefined){
-
-    return (
-      <div>Loading</div>
-    )
-  } else{
-	return (
-		<div>
-			
-			<nav className="navigation">
-				<Typography variant="h1">Take a Hike </Typography>
-				<AppBar position="relative" style={{ background: '#2E3B55' }}>
-					<Toolbar>
-						<div className="links title">
-						
+	if (isloading) {
+		return <div>Loading</div>;
+	} else if (data === undefined) {
+		return <div>Loading</div>;
+	} else {
+		return (
+			<div>
+				<nav className="navigation">
+					<Typography variant="h1">Take a Hike </Typography>
+					<AppBar
+						position="relative"
+						style={{ background: '#2E3B55' }}
+					>
+						<Toolbar>
+							<div className="links title">
 								<StarIcon> </StarIcon>
 								<NavLink exact to="/" activeClassName="active">
 									Landing
 								</NavLink>
-						
-						</div>
-						<div className="links title">
-							
+							</div>
+							<div className="links title">
 								<HomeIcon> </HomeIcon>
 								<NavLink
 									exact
@@ -69,10 +64,8 @@ const NavigationAuth = () => {
 								>
 									Home
 								</NavLink>
-							
-						</div>
-						<div className="links title">
-						
+							</div>
+							<div className="links title">
 								<AccountCircleIcon> </AccountCircleIcon>
 								<NavLink
 									exact
@@ -81,10 +74,8 @@ const NavigationAuth = () => {
 								>
 									Account
 								</NavLink>
-						
-						</div>
-						<div className="links title">
-				
+							</div>
+							<div className="links title">
 								<GroupIcon> </GroupIcon>
 								<NavLink
 									exact
@@ -93,10 +84,8 @@ const NavigationAuth = () => {
 								>
 									Group
 								</NavLink>
-						
-						</div>
-						<div className="links title">
-							
+							</div>
+							<div className="links title">
 								<BookmarkIcon> </BookmarkIcon>
 								<NavLink
 									exact
@@ -105,32 +94,24 @@ const NavigationAuth = () => {
 								>
 									Favorites
 								</NavLink>
-						
-						</div>
-						
-						
-					</Toolbar>
-				</AppBar>
-			</nav>
-			<br/>
-			<div className="user name">
-						
-						
-								    Welcome {data.getUser.name}
-						
-						</div>
-		</div>
-	);
-}};
+							</div>
+						</Toolbar>
+					</AppBar>
+				</nav>
+				<br />
+				<div className="user name">Welcome {data.getUser.name}</div>
+			</div>
+		);
+	}
+};
 
 const NavigationNonAuth = () => {
 	return (
 		<div>
 			<nav className="navigation">
-			<Typography variant="h1">Take a Hike </Typography>
+				<Typography variant="h1">Take a Hike </Typography>
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar style={{ color: 'black' }}>
-					
 						<IconButton
 							edge="start"
 							color="primary"
