@@ -24,6 +24,7 @@ import altTrailImage from '../images/temp_trail_image.jpeg';
 import { useQuery, gql } from '@apollo/react-hooks';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
+import ShareModal from './Modal/ShareModal'
 import uuid from 'react-uuid';
 
 let DefaultIcon = L.icon({
@@ -147,6 +148,7 @@ const Home = (props) => {
 							<Button size="small" color="primary">
 								Learn More
 							</Button>
+							<ShareModal trailid= {trail.id}></ShareModal>
 						</CardActions>
 					</Card>
 				</Grid>
