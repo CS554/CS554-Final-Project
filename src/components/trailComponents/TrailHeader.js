@@ -95,7 +95,7 @@ function TrailHeader(props) {
 					</form>
 				</Grid>
 				<Grid item>
-					<ShareModal trailid={props.trailId} />
+					<ShareModal id={props.trailId} type="trail" />
 				</Grid>
 			</Grid>
 		</div>

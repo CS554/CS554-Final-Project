@@ -142,7 +142,7 @@ const Home = (props) => {
 							</CardContent>
 						</CardActionArea>
 						<CardActions>
-							<ShareModal trailid={trail.id} />
+							<ShareModal id={trail.id} type="trail" />
 						</CardActions>
 					</Card>
 				</Grid>

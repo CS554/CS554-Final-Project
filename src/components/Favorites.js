@@ -167,7 +167,7 @@ function Favorites(props) {
 								justify="center"
 							>
 								<Grid item>
-									<ShareModal trailid={trail.id} />
+									<ShareModal id={trail.id} type="trail" />
 								</Grid>
 								<Grid item>
 									<Button

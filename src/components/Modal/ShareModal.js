@@ -27,7 +27,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ShareModal(props) {
-	let body = `Hey, I found a cool trail we should checkout! https://dev.d2kuny68xeo7bn.amplifyapp.com/trails/${props.trailid}`;
+	let body;
+	if (props.type === 'trail') {
+		body = `Hey, I found a cool trail we should checkout! https://dev.d2kuny68xeo7bn.amplifyapp.com/trails/${props.id}`;
+	} else if (props.type === 'group') {
+		body = `Hey, I found a cool group we should checkout! https://dev.d2kuny68xeo7bn.amplifyapp.com/groups/${props.id}`;
+	}
+
 	let [emails, setEmails] = useState([]);
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
@@ -43,7 +49,7 @@ export default function ShareModal(props) {
 	return (
 		<div>
 			<Button variant="outlined" color="primary" onClick={handleOpen}>
-				Share Trail
+				{props.type === 'trail' ? 'Share Trail' : 'Share Group'}
 			</Button>
 			<Modal
 				aria-labelledby="transition-modal-title"
@@ -59,7 +65,11 @@ export default function ShareModal(props) {
 			>
 				<Fade in={open}>
 					<div className={classes.paper}>
-						<h2 id="transition-modal-title">Share a Trail!</h2>
+						<h2 id="transition-modal-title">
+							{props.type === 'trail'
+								? 'Share a Trail!'
+								: 'Share a Group!'}
+						</h2>
 						<form
 							className="form"
 							id="share-trail"
