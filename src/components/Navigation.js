@@ -20,13 +20,6 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
-  const { currentUser } = useContext(AuthContext);
-  return (
-    <div>{currentUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
-  );
-};
-
-const NavigationAuth = () => {
   const GET_USER = gql`
     query($userId:ID!) {
       getUser(userId:$userId){
