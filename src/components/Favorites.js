@@ -35,8 +35,8 @@ const useStyles = makeStyles({
 
 function Favorites(props) {
   const classes = useStyles();
-  const [dData, setdData] = useState();
-  const [tData, settData] = useState();
+  // const [dData, setdData] = useState();
+  // const [tData, settData] = useState();
   const { currentUser } = useContext(AuthContext);
   const userID=currentUser.$b.uid
 
@@ -79,12 +79,14 @@ const [delFavorite] = useMutation(REMOVE_FAVORITE);
 
 
 
-  const { isloading, error, data, refetch } = useQuery(GET_FAV, {
+const { isloading, error, data, refetch } = useQuery(GET_FAV, {
 		variables: {
       userId:userID,
     
 		}
   });
+  
+ 
 
   
 
@@ -101,13 +103,18 @@ const [delFavorite] = useMutation(REMOVE_FAVORITE);
     }
   });
 
-  useEffect(() => {
-    setdData(data);
-    settData(trailData)
-   }, [data,trailData]);
+  // useEffect(() => {
+  //   setdData(data);
+  //   settData(trailData)
+  //  }, [data,trailData]);
   
+  useEffect(() => {
+    console.log("loaded");
+    reload();
+    
+  }, []);
 
-  if(loading || !trailData){
+  if(loading || !trailData || isloading){
     return (
 			<div style={style}>
 			<Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
@@ -122,16 +129,17 @@ const [delFavorite] = useMutation(REMOVE_FAVORITE);
 	// 	console.log('on load useeffect');
   // }, [data,trailData]);
 
+
+
   function reload(){
-   refetch();
-  refetchTrails();
-  setdData(data);
-  settData(trailData)
- 
-}
+   //refetch();
+  setTimeout(refetch,1000)
+   refetchTrails();
+  }
+
   let cards=[];
-  if (tData?.getTrailsById) {
-		let newCards = tData.getTrailsById.map((trail) => {
+  if (trailData?.getTrailsById) {
+		let newCards = trailData.getTrailsById.map((trail) => {
 			if(trail.img == ""){
 				trail.img = altTrailImage
 			}
@@ -176,7 +184,7 @@ const [delFavorite] = useMutation(REMOVE_FAVORITE);
 				}
       });
      reload()
-     
+     console.log("clicked");
        }}>
 								Remove
 							</Button>

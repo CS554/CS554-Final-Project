@@ -21,21 +21,21 @@ const Navigation = () => {
 const NavigationAuth = () => {
 	return (
 		<div>
-			<Typography variant="h1">Take a Hike </Typography>
+			
 			<nav className="navigation">
-				
+				<Typography variant="h1">Take a Hike </Typography>
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar>
-						<div className="links">
-							<Typography variant="h4">
+						<div className="links title">
+						
 								<StarIcon> </StarIcon>
 								<NavLink exact to="/" activeClassName="active">
 									Landing
 								</NavLink>
-							</Typography>
+						
 						</div>
-						<div className="links">
-							<Typography variant="h2">
+						<div className="links title">
+							
 								<HomeIcon> </HomeIcon>
 								<NavLink
 									exact
@@ -44,10 +44,10 @@ const NavigationAuth = () => {
 								>
 									Home
 								</NavLink>
-							</Typography>
+							
 						</div>
-						<div className="links">
-							<Typography variant="h2">
+						<div className="links title">
+						
 								<AccountCircleIcon> </AccountCircleIcon>
 								<NavLink
 									exact
@@ -56,10 +56,10 @@ const NavigationAuth = () => {
 								>
 									Account
 								</NavLink>
-							</Typography>
+						
 						</div>
-						<div className="links">
-							<Typography variant="h2">
+						<div className="links title">
+				
 								<GroupIcon> </GroupIcon>
 								<NavLink
 									exact
@@ -68,10 +68,10 @@ const NavigationAuth = () => {
 								>
 									Group
 								</NavLink>
-							</Typography>
+						
 						</div>
-						<div className="links">
-							<Typography variant="h2">
+						<div className="links title">
+							
 								<BookmarkIcon> </BookmarkIcon>
 								<NavLink
 									exact
@@ -80,16 +80,20 @@ const NavigationAuth = () => {
 								>
 									Favorites
 								</NavLink>
-							</Typography>
+						
 						</div>
-						<div className="user">
-							<Typography variant="h2">
-								Hi {firebase.auth().currentUser.displayName}
-							</Typography>
-						</div>
+						
+						
 					</Toolbar>
 				</AppBar>
 			</nav>
+			<br/>
+			<div className="user name">
+						
+						
+								    Welcome {firebase.auth().currentUser.displayName}
+						
+						</div>
 		</div>
 	);
 };
@@ -98,8 +102,10 @@ const NavigationNonAuth = () => {
 	return (
 		<div>
 			<nav className="navigation">
+			<Typography variant="h1">Take a Hike </Typography>
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar style={{ color: 'black' }}>
+					
 						<IconButton
 							edge="start"
 							color="primary"

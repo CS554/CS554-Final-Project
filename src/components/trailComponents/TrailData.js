@@ -49,6 +49,15 @@ function TrailData(props) {
 								name="hover-feedback"
 								precision={0.5}
 								value={props.ratings}
+								onChange={(event, newValue) => {
+									// setValue(newValue);
+									console.log(newValue);
+								  }}
+
+								  onChangeActive={(event, newHover) => {
+									// setHover(newHover);
+									console.log(newHover);
+								  }} 
 							
 							/>
 						)}
