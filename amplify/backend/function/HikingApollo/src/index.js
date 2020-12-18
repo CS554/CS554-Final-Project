@@ -75,7 +75,7 @@ const resolvers = {
 			return await removeUserFromGroup(args.groupId, args.userId);
 		},
 		deleteGroup: async (_, args) => {
-			return await deleteGroup(args.id);
+			return await deleteGroup(args.groupId);
 		},
 		addRating: async (_, args) => {
 			return await addRating(args.userId, args.trailId, args.rating);

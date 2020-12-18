@@ -23,7 +23,7 @@
         "Name": "getTrails-dev",
         "LambdaExecutionRole": "hikingappLambdaRole8c292220-dev"
       },
-      "lastPushTimeStamp": "2020-12-17T05:10:35.452Z",
+      "lastPushTimeStamp": "2020-12-18T04:08:55.865Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-hikingapp-dev-215354-deployment/amplify-cfn-templates/function/getTrails-cloudformation-template.json",
         "logicalId": "functiongetTrails"
@@ -39,15 +39,15 @@
         "Name": "HikingApollo-dev",
         "LambdaExecutionRole": "hikingappLambdaRole9194fea6-dev"
       },
-      "lastPushTimeStamp": "2020-12-17T05:10:35.459Z",
+      "lastPushTimeStamp": "2020-12-18T04:08:55.874Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-hikingapp-dev-215354-deployment/amplify-cfn-templates/function/HikingApollo-cloudformation-template.json",
         "logicalId": "functionHikingApollo"
       },
-      "lastBuildTimeStamp": "2020-12-17T05:09:12.764Z",
-      "lastPackageTimeStamp": "2020-12-17T05:09:18.588Z",
-      "distZipFilename": "HikingApollo-6f2b4e64574876796155-build.zip",
-      "lastPushDirHash": "cMVPj4htmTTijW1JYdBKRNFtjro="
+      "lastBuildTimeStamp": "2020-12-18T04:08:09.586Z",
+      "lastPackageTimeStamp": "2020-12-18T04:08:15.325Z",
+      "distZipFilename": "HikingApollo-4f387346626c2b543170-build.zip",
+      "lastPushDirHash": "GCYWhJ5pRtHatGpbvBXPIJZBdmk="
     }
   },
   "api": {
@@ -69,7 +69,7 @@
         "RootUrl": "https://wax7hee626.execute-api.us-east-1.amazonaws.com/dev",
         "ApiId": "wax7hee626"
       },
-      "lastPushTimeStamp": "2020-12-17T05:10:35.456Z",
+      "lastPushTimeStamp": "2020-12-18T04:08:55.870Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-hikingapp-dev-215354-deployment/amplify-cfn-templates/api/hikingAPI-cloudformation-template.json",
         "logicalId": "apihikingAPI"
