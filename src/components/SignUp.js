@@ -4,6 +4,10 @@ import { gql, useMutation } from '@apollo/react-hooks';
 import { doCreateUserWithEmailAndPassword } from '../firebase/FirebaseFunctions';
 import { AuthContext } from '../firebase/Auth';
 import SocialSignIn from './SocialSignIn';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const ADD_USER = gql`
 	mutation createUser($id: ID!, $name: String!) {
@@ -14,7 +18,24 @@ const ADD_USER = gql`
 	}
 `;
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+	  '& > *': {
+		margin: theme.spacing(1),
+		width: '25ch',
+	  },
+	},
+  }));
+  
+const defaultProps = {
+	bgcolor: 'background.paper',
+	m: 1,
+	border: 1.5,
+	style: { width: '20rem', height: '39rem' , padding:"50px" },
+  };
+
 function SignUp() {
+	const classes = useStyles();
 	const { currentUser } = useContext(AuthContext);
 	const [pwMatch, setPwMatch] = useState('');
 	const [addUser] = useMutation(ADD_USER);
@@ -53,14 +74,17 @@ function SignUp() {
 	if (currentUser) {
 		return <Redirect to="/home" />;
 	}
-
+	
 	return (
+		<Box display="flex" justifyContent="center">
+    <Box borderColor="primary.main"{...defaultProps}>
 		<div>
 			<h1>Sign up</h1>
 			{pwMatch && <h4 className="error">{pwMatch}</h4>}
-			<form onSubmit={(e) => handleSignUp(e, addUser)}>
-				<div className="form-group">
-					<label>
+			<form onSubmit={(e) => handleSignUp(e, addUser)} className={classes.root} noValidate autoComplete="off">
+				{/* //<div className="form-group"> */}
+				<TextField required id="displayName" name="displayName" label="Name" variant="outlined" type="text"  />
+				{/* <label>
 						Name:
 						<input
 							className="form-control"
@@ -69,10 +93,11 @@ function SignUp() {
 							type="text"
 							placeholder="Name"
 						/>
-					</label>
-				</div>
-				<div className="form-group">
-					<label>
+					</label> */}
+				{/* //</div> */}
+				{/* <div className="form-group"> */}
+				<TextField required id="email"  name="email" label="Email" variant="outlined" type="email"  />
+					{/* <label>
 						Email:
 						<input
 							className="form-control"
@@ -82,10 +107,11 @@ function SignUp() {
 							placeholder="Email"
 						/>
 					</label>
-				</div>
-				<div className="form-group">
-					<label>
-						Password:
+				</div> */}
+				{/* <div className="form-group">
+					<label> */}
+					<TextField required id="passwordOne"  name="passwordOne" type="password" label="Password" variant="outlined"   />
+						{/* Password:
 						<input
 							className="form-control"
 							id="passwordOne"
@@ -95,8 +121,9 @@ function SignUp() {
 							required
 						/>
 					</label>
-				</div>
-				<div className="form-group">
+				</div> */}
+				<TextField required id="passwordTwo"  name="passwordTwo" type="password" label="Confirm Password" variant="outlined"   />
+				{/* <div className="form-group">
 					<label>
 						Confirm Password:
 						<input
@@ -107,14 +134,16 @@ function SignUp() {
 							required
 						/>
 					</label>
-				</div>
-				<button id="submitButton" name="submitButton" type="submit">
+				</div> */}
+				<Button variant="contained" color="primary" type="submit">
 					Sign Up
-				</button>
+				</Button>
 			</form>
 			<br />
 			<SocialSignIn />
 		</div>
+		</Box>
+		</Box>
 	);
 }
 

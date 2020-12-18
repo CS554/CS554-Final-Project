@@ -114,10 +114,9 @@ const handleSubmit = (event) => {
         members : [userID]
       }
     });
-    refetch();
-
     setnewName('');
     setnewDescription('');
+    setTimeout(refetch, 300);
   }
 };
 
@@ -132,7 +131,7 @@ if (data?.getAllGroups) {
                 className={classes1.media}
                 title={group.name}
                 alt="trail card"
-                style={{ backgroundColor: "red" }}
+                style={{ backgroundColor: "#" + Math.floor(Math.random()* 16777215).toString(16) }}
                 image = "/imgs/take-a-hike-logo.png"
               />
               </Link>
@@ -204,7 +203,9 @@ const body = (
   </div>
 );
 
-
+if (error) {
+  return <div>Unexpected Error: {error}</div>;
+}
 
   return (
     <div>

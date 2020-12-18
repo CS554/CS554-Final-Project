@@ -13,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+
 import '../App.css';
 
 const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",fontWeight:"bold", fontSize:"50px" };
@@ -77,6 +78,13 @@ const useStyles1 = makeStyles({
 	}
 });
 
+// const generateRandomColor() = {
+//     let r = Math.round((Math.random() * 255)); //red 0 to 255
+//     let g = Math.round((Math.random() * 255)); //green 0 to 255
+//     let b = Math.round((Math.random() * 255)); //blue 0 to 255
+//     return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+//   };
+
 function Groups(props) {
   const { isloading, error, data, refetch } = useQuery(getGroup, {variables: {id: props.match.params.id}});
   const { isloading:loading, error:userError, data:userData, refetch:userRefetch } = useQuery(allUsers, {variables: {groupId: props.match.params.id}});
@@ -88,18 +96,39 @@ function Groups(props) {
   const [addToGroups] = useMutation(addGroup);
   const [removeFromGroups] = useMutation(removeGroup);
   let cards = [];
+  const [newAdd, setAdd] = useState(false);
+  const [newRemove, setRemove] = useState(false);
+
+  // console.log("chran",groupData?.members.indexOf(userID) < 0)
+  // console.log("test",newAdd)
+
+  useEffect(() => {
+    console.log('on load useeffect');
+    async function fetchData() {
+      if (groupData?.members.indexOf(userID) < 0){
+        setAdd(true)
+        setRemove(false)
+      }
+      else{
+        setAdd(false)
+        setRemove(true)
+      }
+    }
+    fetchData();
+  }, [data, userData]);
+
+
 
   if (userData?.listUsersInGroup) {
     let newUser = userData.listUsersInGroup.map((user) => {
       return (
         <Grid item xs={12} sm={6} md={4} key={user.id}>
           <Card className={classes1.root} key={user.id}>
-            <CardActionArea>
                 <CardMedia
                   className={classes1.media}
                   title={user.name}
                   alt="trail card"
-                  style={{ backgroundColor: "red" }}
+                  style={{ backgroundColor: "#" + Math.floor(Math.random()* 16777215).toString(16) }}
                   image = "/imgs/take-a-hike-logo.png"
                 />
               <CardContent>
@@ -111,7 +140,6 @@ function Groups(props) {
                   {user.name}
                 </Typography>
               </CardContent>
-            </CardActionArea>
             <CardActions>
               <Button size="small" color="primary">
                 Share
@@ -137,7 +165,10 @@ function Groups(props) {
           userId: userID
         }
       });
-      refetch();
+      setAdd(false);
+      setRemove(true);
+      setTimeout(userRefetch, 1000);
+      setTimeout(refetch,1000);
     }
   };
 
@@ -151,7 +182,10 @@ function Groups(props) {
           userId: userID
         }
       });
-      refetch();
+      setAdd(true);
+      setRemove(false);
+      setTimeout(userRefetch, 1000);
+      setTimeout(refetch, 1000);
     }
   };
 
@@ -192,6 +226,16 @@ if (groupData && groupData?.description){
 else{
   desc = "You guys need a better leader who puts a description";
 }
+if (error) {
+  return <div>Unexpected Error: {error}</div>;
+}
+// const val = () => {
+//   if (groupData?.members.indexOf(userID) < 0)
+//   console.log(groupData?.members.indexOf(userID) > -1)
+// }
+// val()
+console.log("Add",newAdd)
+console.log("Remove",newRemove)
 if(isloading || !groupData){
   return (
     <div style={style}>
@@ -205,8 +249,8 @@ else{
       <h1>{groupData?.name}</h1>
 
       <h3>{desc} </h3>
-      {groupData?.members.indexOf(userID) < 0 && add}
-      {groupData?.members.indexOf(userID) > -1 && remove}
+      {newAdd && groupData?.members.indexOf(userID) < 0 && add}
+      {newRemove && groupData?.members.indexOf(userID) > -1 && remove}
       <Grid container>{cards}</Grid>
     </div>
   );
