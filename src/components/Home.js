@@ -96,8 +96,8 @@ const Home = (props) => {
 					className="Loader"
 					type="Grid"
 					color="#00BFFF"
-					height={150}
-					width={150}
+					height={60}
+					width={60}
 				/>
 			</div>
 		);
@@ -272,9 +272,13 @@ const Home = (props) => {
 							}}
 							required
 							autoFocus={true}
-						></input>
-						<Button color="secondary">
-							<input type="submit" value="Submit" />
+						></input> 
+					
+							
+					
+						<Button variant="contained" color="default" type="submit">
+							
+							Submit
 						</Button>
 					</form>
 					<div className="col d-flex justify-content-center">

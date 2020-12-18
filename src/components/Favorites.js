@@ -104,19 +104,23 @@ function Favorites(props) {
 		reload();
 	}, []);
 
-	if (loading || !trailData || isloading) {
+	if (loading || !trailData || isloading || !data) {
 		return (
 			<div style={style}>
 				<Loader
 					className="Loader"
 					type="Grid"
 					color="#00BFFF"
-					height={150}
-					width={150}
+					height={60}
+					width={60}
 				/>
 			</div>
 		);
+  }
+  if (error || trailError) {
+		return <div>Error 404: Unexpected Error {error}</div>;
 	}
+
 
 	function reload() {
 		setTimeout(refetch, 1000);
