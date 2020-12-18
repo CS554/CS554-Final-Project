@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Trail from './components/trailComponents/Trail';
 import Favorites from './components/Favorites';
 import Groups from './components/Groups';
+import GroupInfo from './components/GroupData';
 import HeaderImage from './images/hiking_horizontal.png';
 
 import { Box } from '@material-ui/core';
@@ -54,6 +55,7 @@ function App() {
 				<PrivateRoute exact path="/trails/:id" component={Trail} />
 				<PrivateRoute exact path="/favorites" component={Favorites} />
 				<PrivateRoute exact path="/groups" component={Groups} />
+				<PrivateRoute exact path="/groups/:id" component={GroupInfo} />
 				<Route path="/signin" component={SignIn} />
 				<Route path="/signup" component={SignUp} />
 			</Router>

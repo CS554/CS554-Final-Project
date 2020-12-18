@@ -62,17 +62,6 @@ const getGroup = gql`
 }
 `;
 
-// const addGroup = gql`
-//   mutation addToGroup($groupId: ID!, $userId: ID!) {
-//     addUserToGroup(groupId: $groupId, userId: $userId) {
-//       id
-//       name
-//       favorites
-//       groups
-//   }
-// }
-// `;
-
 const addGroup = gql`
 mutation createGroup($name: String!, $members: [ID], $ownerId: ID, $description: String) {
     createGroup(name: $name, members: $members, ownerId: $ownerId, description: $description) {
@@ -138,6 +127,7 @@ if (data?.getAllGroups) {
       <Grid item xs={12} sm={6} md={4} key={group.id}>
         <Card className={classes1.root} key={group.id}>
           <CardActionArea>
+          <Link to={`/groups/${group.id}`}>
               <CardMedia
                 className={classes1.media}
                 title={group.name}
@@ -145,6 +135,7 @@ if (data?.getAllGroups) {
                 style={{ backgroundColor: "red" }}
                 image = "/imgs/take-a-hike-logo.png"
               />
+              </Link>
             <CardContent>
               <Typography
                 gutterBottom
