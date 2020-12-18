@@ -38,7 +38,7 @@ const NavigationAuth = () => {
     return (
       <div>Loading</div>
     ) 
-  } else if(data == undefined){
+  } else if(data === undefined){
 
     return (
       <div>Loading</div>

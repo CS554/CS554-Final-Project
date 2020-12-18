@@ -71,21 +71,26 @@ function Comments(props) {
 
 	return (
 		<div>
+			<p className="reviewPad">Reviews</p>
 			{data?.getTrailsById &&
 				data.getTrailsById[0].comments.map(function ({
 					username,
 					text
 				}) {
 					return (
-						<Container maxWidth="sm" key={uuid()}>
+						
+						
+
+							<Container maxWidth="sm" key={uuid()}>
 							<Paper elevation={3}>
 								<div>
+								
 									<Chip
 										label={username}
 										size="small"
 										variant="outlined"
 									/>
-									<h3>{text}</h3>
+									<h3 className="comText">{text}</h3>
 								</div>
 							</Paper>
 						</Container>
@@ -126,8 +131,10 @@ function Comments(props) {
 							</Button>
 						</form>
 					)}
+					
 				</Paper>
 			</Container>
+			
 		</div>
 	);
 }
