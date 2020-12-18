@@ -195,7 +195,9 @@ function Favorites(props) {
 			<div>
 				<br />
 			</div>
-			<Grid container>{cards}</Grid>
+			<Grid container spacing={2}>
+				{cards}
+			</Grid>
 		</>
 	);
 }

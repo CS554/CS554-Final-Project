@@ -113,14 +113,7 @@ const Home = (props) => {
 				trail.img = altTrailImage;
 			}
 			return (
-				<Grid
-					container
-					xs={12}
-					sm={6}
-					md={4}
-					key={trail.id}
-					spacing={2}
-				>
+				<Grid item xs={12} sm={6} md={4} key={trail.id}>
 					<Card className={classes.root} key={trail.id}>
 						<CardActionArea>
 							<Link to={`/trails/${trail.id}`}>
@@ -297,7 +290,9 @@ const Home = (props) => {
 					</div>
 				</div>
 			</div>
-			<Grid container>{cards}</Grid>
+			<Grid container spacing={2}>
+				{cards}
+			</Grid>
 		</>
 	);
 };
