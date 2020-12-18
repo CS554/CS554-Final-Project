@@ -6,8 +6,28 @@ import {
   doSignInWithEmailAndPassword,
   doPasswordReset,
 } from '../firebase/FirebaseFunctions';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
+
+const defaultProps = {
+  bgcolor: 'background.paper',
+  m: 1,
+  border: 1.5,
+  style: { width: '20rem', height: '30rem' , padding:"50px" },
+};
+const useStyles = makeStyles((theme) => ({
+	root: {
+	  '& > *': {
+		margin: theme.spacing(1),
+		width: '25ch',
+	  },
+	},
+  }));
 function SignIn() {
+  const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -40,12 +60,15 @@ function SignIn() {
     }}/>;
   }
   return (
-    <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label>
-            Email:
+    <Box display="flex" justifyContent="center">
+    <Box borderColor="primary.main"{...defaultProps}>
+    <div >
+      <h1>Login</h1>
+      <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
+      <TextField required id="email" name="email" label="Email" variant="outlined" type="email"  />
+        {/* <div className="form-group">
+          <label> */}
+            {/* Email:
             <input
               className="form-control"
               name="email"
@@ -55,8 +78,9 @@ function SignIn() {
               required
             />
           </label>
-        </div>
-        <div className="form-group">
+        </div> */}
+        <TextField required id="password" name="password" label="Password" variant="outlined" type="password"  />
+        {/* <div className="form-group">
           <label>
             Password:
             <input
@@ -68,9 +92,11 @@ function SignIn() {
               required
             />
           </label>
-        </div>
-        <button type="submit">Log in</button>
-
+        </div> */}
+        <Button variant="contained" color="primary" type="submit">Log in
+        </Button>
+        
+       
         <button className="forgotPassword" onClick={passwordReset}>
           Forgot Password
         </button>
@@ -79,6 +105,8 @@ function SignIn() {
       <br />
       <SocialSignIn />
     </div>
+    </Box>
+    </Box>
   );
 }
 

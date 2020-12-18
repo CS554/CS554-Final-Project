@@ -4,7 +4,8 @@ import '../App.css';
 import ChangePassword from './ChangePassword';
 import firebase from 'firebase';
 import AccountImage from '../images/Account_Image.png';
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography ,ButtonGroup} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 function Account() {
 	console.log(firebase.auth().currentUser);
@@ -23,7 +24,10 @@ function Account() {
 				<br />
 				<Container className="AccountInfo">
 					<ChangePassword />
-					<SignOutButton />
+					<ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
+					<Button><SignOutButton /></Button>
+					</ButtonGroup>
+					
 				</Container>
 			</div>
 		</>

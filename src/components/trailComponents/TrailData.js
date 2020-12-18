@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useContext, useEffect,useMutation} from 'react';
 import {
 	Paper,
 	List,
@@ -16,8 +16,13 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import '../../App.css';
+import { useQuery, gql } from '@apollo/react-hooks';
+import { AuthContext } from '../../firebase/Auth';
 
 function TrailData(props) {
+	const { currentUser } = useContext(AuthContext);
+	const userID=currentUser.$b.uid
+
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			width: '100%',
@@ -34,6 +39,57 @@ function TrailData(props) {
 		black: 'Very Hard'
 	};
 
+	//fetch and calculated rating
+	const query = gql`
+		query getTrail($trailID: [ID]!) {
+			getTrailsById(trailId: $trailID) {
+				
+				ratings {
+					rating
+				}
+
+				
+			}
+		}
+	`;
+	const UPDATE_RATING= gql`
+	
+		mutation something($userId:ID!, $trailId: ID!, $rating: Float!) 
+				{
+			addRating(userId:$userId, trailId:$trailId, rating: $rating){
+			userId
+			
+			}
+			}
+	`;
+	// const [updateRat] = useMutation(UPDATE_RATING);
+	
+
+	const { isloading, error, data } = useQuery(query, {
+		variables: {
+			trailID: props.trailID
+		}
+	});
+
+	if (error) {
+		return <div>Error</div>;
+	}
+
+
+	function calcRating(){
+		let finalRating=0
+		data.getTrailsById[0].ratings.forEach(key => {
+			finalRating=finalRating+key.rating;
+		});
+		return finalRating/data.getTrailsById[0].ratings.length;
+	}
+	//
+
+	//update rating
+	
+
+	//
+
 	return (
 		<div>
 			<Paper elevation={3}>
@@ -48,22 +104,26 @@ function TrailData(props) {
 							<Rating
 								name="hover-feedback"
 								precision={0.5}
-								value={props.ratings}
+								value={calcRating()}
 								onChange={(event, newValue) => {
 									// setValue(newValue);
+									// updateRat({
+									// 	variables: {
+									// 		userId: userID,
+									// 		trailId:props.trailID,
+									// 		rating:newValue
+											
+									// }});
 									console.log(newValue);
 								  }}
 
-								  onChangeActive={(event, newHover) => {
-									// setHover(newHover);
-									console.log(newHover);
-								  }} 
+								  
 							
 							/>
 						)}
 						<br />
 						<ListItemText
-							secondary={`${props.num_of_ratings} ratings`}
+							secondary={`${data.getTrailsById[0].ratings.length} ratings`}
 						/>
 					</ListItem>
 					<Divider variant="inset" component="li" />
