@@ -1,5 +1,5 @@
-import React ,{ useContext, useEffect} from 'react';
-import { useQuery, gql } from '@apollo/react-hooks';
+import React ,{ useContext, useEffect,useState} from 'react';
+import { useQuery, gql,useMutation } from '@apollo/react-hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -35,7 +35,8 @@ const useStyles = makeStyles({
 
 function Favorites(props) {
   const classes = useStyles();
-
+  // const [dData, setdData] = useState();
+  // const [tData, settData] = useState();
   const { currentUser } = useContext(AuthContext);
   const userID=currentUser.$b.uid
 
@@ -62,13 +63,31 @@ function Favorites(props) {
 		}
 	}
 `;
+//delete favorites
+const REMOVE_FAVORITE = gql`
+mutation delFav($userId: ID!, $oldFavorite: ID!) {
+  deleteFavorite(userId: $userId, oldFavorite: $oldFavorite) {
+    favorites
+  }
+}
+`;
 
-  const { isloading, error, data, refetch } = useQuery(GET_FAV, {
+
+const [delFavorite] = useMutation(REMOVE_FAVORITE);
+
+//
+
+
+
+const { isloading, error, data, refetch } = useQuery(GET_FAV, {
 		variables: {
       userId:userID,
     
 		}
   });
+  
+ 
+
   
 
   
@@ -84,7 +103,18 @@ function Favorites(props) {
     }
   });
 
-  if(loading || !trailData){
+  // useEffect(() => {
+  //   setdData(data);
+  //   settData(trailData)
+  //  }, [data,trailData]);
+  
+  useEffect(() => {
+    console.log("loaded");
+    reload();
+    
+  }, []);
+
+  if(loading || !trailData || isloading){
     return (
 			<div style={style}>
 			<Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
@@ -92,10 +122,20 @@ function Favorites(props) {
 		)
   }
 
+  
+
+  
   // useEffect(() => {
 	// 	console.log('on load useeffect');
   // }, [data,trailData]);
 
+
+
+  function reload(){
+   //refetch();
+  setTimeout(refetch,1000)
+   refetchTrails();
+  }
 
   let cards=[];
   if (trailData?.getTrailsById) {
@@ -136,7 +176,16 @@ function Favorites(props) {
 							<Button size="small" color="primary">
 								Share
 							</Button>
-							<Button size="small" color="primary">
+							<Button size="small" color="primary" onClick={() => { 
+                delFavorite({
+				variables: {
+					oldFavorite: trail.id,
+					userId: userID
+				}
+      });
+     reload()
+     console.log("clicked");
+       }}>
 								Remove
 							</Button>
 						</CardActions>
