@@ -74,7 +74,7 @@ const Home = (props) => {
 	let inputLat;
 	let inputLong;
 	let trailMarkers;
-	const [center, setCenter] = useState({ lat: 0.0, lng: 0.0 });
+	const [center, setCenter] = useState({ lat: 40.7451, lng: -74.0248 });
 	const { isloading, error, data, refetch } = useQuery(query2, {
 		variables: { lat: center.lat, long: center.lng }
 	});
@@ -272,12 +272,13 @@ const Home = (props) => {
 							}}
 							required
 							autoFocus={true}
-						></input> 
-					
-							
-					
-						<Button variant="contained" color="default" type="submit">
-							
+						></input>
+
+						<Button
+							variant="contained"
+							color="default"
+							type="submit"
+						>
 							Submit
 						</Button>
 					</form>
