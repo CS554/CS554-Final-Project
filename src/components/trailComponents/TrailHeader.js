@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Box } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import '../../App.css';
 import firebase from 'firebase';
 import { useQuery, useMutation, gql } from '@apollo/react-hooks';
+import ShareModal from '../Modal/ShareModal';
 
 function TrailHeader(props) {
 	const [isFavorite, setFavorite] = useState(false);
@@ -74,21 +75,29 @@ function TrailHeader(props) {
 		<div>
 			<br />
 
-			<Box display="flex" flexDirection="row" justifyContent="center">
-				<h1>{props.name}</h1>
-
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="favoriteIcon" />
-					<Button color="primary" type="submit" id="favoriteIcon">
-						{!isFavorite && <FavoriteBorderIcon />}
-						{isFavorite && <FavoriteIcon />}
-					</Button>
-				</form>
-
-				<Button size="small" color="primary">
-					Share
-				</Button>
-			</Box>
+			<Grid
+				container
+				display="inline-block"
+				alignItems="center"
+				alignContent="center"
+				justify="center"
+			>
+				<Grid item>
+					<h1>{props.name}</h1>
+				</Grid>
+				<Grid item>
+					<form onSubmit={handleSubmit}>
+						<label htmlFor="favoriteIcon" />
+						<Button color="primary" type="submit" id="favoriteIcon">
+							{!isFavorite && <FavoriteBorderIcon />}
+							{isFavorite && <FavoriteIcon />}
+						</Button>
+					</form>
+				</Grid>
+				<Grid item>
+					<ShareModal trailid={props.trailId} />
+				</Grid>
+			</Grid>
 		</div>
 	);
 }
