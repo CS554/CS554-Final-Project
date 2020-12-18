@@ -8,6 +8,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
+import { useQuery, gql } from '@apollo/react-hooks';
 
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 
@@ -19,6 +20,37 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => {
+  const { currentUser } = useContext(AuthContext);
+  return (
+    <div>{currentUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+  );
+};
+
+const NavigationAuth = () => {
+  const GET_USER = gql`
+    query($userId:ID!) {
+      getUser(userId:$userId){
+        name
+        }
+    }`;
+  console.log(firebase.auth().currentUser)
+  const userID = firebase.auth().currentUser.uid
+  const { isloading, error, data } = useQuery(GET_USER, {
+    variables: {
+      userId: userID,
+    }
+  });
+
+  if (isloading) {
+    return (
+      <div>Loading</div>
+    ) 
+  } else if(data == undefined){
+
+    return (
+      <div>Loading</div>
+    )
+  } else{
 	return (
 		<div>
 			
@@ -91,12 +123,12 @@ const NavigationAuth = () => {
 			<div className="user name">
 						
 						
-								    Welcome {firebase.auth().currentUser.displayName}
+								    Welcome {data.getUser.name}
 						
 						</div>
 		</div>
 	);
-};
+}};
 
 const NavigationNonAuth = () => {
 	return (
