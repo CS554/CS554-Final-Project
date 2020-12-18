@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useQuery, gql, useMutation } from '@apollo/react-hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -17,6 +17,7 @@ import altTrailImage from '../images/temp_trail_image.jpeg';
 import { Link } from 'react-router-dom';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
+import ShareModal from './Modal/ShareModal';
 
 const style = {
 	position: 'fixed',
@@ -125,7 +126,7 @@ function Favorites(props) {
 	let cards = [];
 	if (trailData?.getTrailsById) {
 		let newCards = trailData.getTrailsById.map((trail) => {
-			if (trail.img == '') {
+			if (trail.img === '') {
 				trail.img = altTrailImage;
 			}
 			return (
@@ -158,25 +159,34 @@ function Favorites(props) {
 							</CardContent>
 						</CardActionArea>
 						<CardActions>
-							<Button size="small" color="primary">
-								Share
-							</Button>
-							<Button
-								size="small"
-								color="primary"
-								onClick={() => {
-									delFavorite({
-										variables: {
-											oldFavorite: trail.id,
-											userId: userID
-										}
-									});
-									reload();
-									console.log('clicked');
-								}}
+							<Grid
+								container
+								display="inline-block"
+								alignItems="center"
+								alignContent="center"
+								justify="center"
 							>
-								Remove
-							</Button>
+								<Grid item>
+									<ShareModal id={trail.id} type="trail" />
+								</Grid>
+								<Grid item>
+									<Button
+										variant="outlined"
+										onClick={() => {
+											delFavorite({
+												variables: {
+													oldFavorite: trail.id,
+													userId: userID
+												}
+											});
+											reload();
+											console.log('clicked');
+										}}
+									>
+										Remove
+									</Button>
+								</Grid>
+							</Grid>
 						</CardActions>
 					</Card>
 				</Grid>
@@ -195,7 +205,9 @@ function Favorites(props) {
 			<div>
 				<br />
 			</div>
-			<Grid container>{cards}</Grid>
+			<Grid container spacing={2}>
+				{cards}
+			</Grid>
 		</>
 	);
 }

@@ -24,7 +24,7 @@ import altTrailImage from '../images/temp_trail_image.jpeg';
 import { useQuery, gql } from '@apollo/react-hooks';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
-import ShareModal from './Modal/ShareModal'
+import ShareModal from './Modal/ShareModal';
 import uuid from 'react-uuid';
 
 let DefaultIcon = L.icon({
@@ -142,13 +142,7 @@ const Home = (props) => {
 							</CardContent>
 						</CardActionArea>
 						<CardActions>
-							<Button size="small" color="primary">
-								Share
-							</Button>
-							<Button size="small" color="primary">
-								Learn More
-							</Button>
-							<ShareModal trailid= {trail.id}></ShareModal>
+							<ShareModal id={trail.id} type="trail" />
 						</CardActions>
 					</Card>
 				</Grid>
@@ -254,7 +248,7 @@ const Home = (props) => {
 					>
 						<label htmlFor="inputLat">Latitude</label>
 						<input
-							type="number" 
+							type="number"
 							step="0.0001"
 							id="inputLat"
 							name="inputLat"
@@ -268,7 +262,7 @@ const Home = (props) => {
 
 						<label htmlFor="inputLong">Longitude</label>
 						<input
-							type="number" 
+							type="number"
 							step="0.0001"
 							id="inputLong"
 							name="inputLong"
@@ -296,7 +290,9 @@ const Home = (props) => {
 					</div>
 				</div>
 			</div>
-			<Grid container>{cards}</Grid>
+			<Grid container spacing={2}>
+				{cards}
+			</Grid>
 		</>
 	);
 };
