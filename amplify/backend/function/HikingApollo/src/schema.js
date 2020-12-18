@@ -33,7 +33,7 @@ const typeDefs = gql`
 	}
 	type Group {
 		id: ID!
-		owner: ID
+		ownerId: ID
 		name: String
 		members: [ID]
 		description: String
