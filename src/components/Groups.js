@@ -119,15 +119,12 @@ function Groups(props) {
 	const [newDescription, setnewDescription] = useState('');
 	const [load, setLoad] = useState(true);
 
-	function refreshPage() {
-		window.location.reload();
-	}
 	useEffect(() => {
 		if (load) {
 			setTimeout(refetch, 50);
 			setLoad(false);
 		}
-	}, []);
+	}, [load, refetch]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

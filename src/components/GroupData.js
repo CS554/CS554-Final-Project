@@ -10,9 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 
 import '../App.css';
 
@@ -32,9 +30,7 @@ const style1 = {
 	color: 'white',
 	padding: '14 40px',
 	fontSize: '24px',
-	border: '2px solid #2E3B55',
 	boxShadow: '0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)'
-	// text-align: center;
 };
 const useStyles2 = makeStyles((theme) => ({
 	root: {
@@ -125,11 +121,10 @@ function Groups(props) {
 	const [newAdd, setAdd] = useState(false);
 	const [newRemove, setRemove] = useState(false);
 	const [deleteGroups] = useMutation(deleteGroup);
-	const [newOwner, setOwner] = useState(false);
 	let history = useHistory();
-	const [noGroupError, setNoGroupError] = useState(false);
 
 	useEffect(() => {
+		async function fetchData(){
 		if (groupData?.members.indexOf(userID) < 0) {
 			setAdd(true);
 			setRemove(false);
@@ -137,7 +132,8 @@ function Groups(props) {
 			setAdd(false);
 			setRemove(true);
 		}
-	}, [data, userData]);
+	}fetchData();
+}, [userID, groupData?.members,data, userData]);
 
 	if (error) {
 		return <h2>Error 404: Page Not Found</h2>;
@@ -154,7 +150,7 @@ function Groups(props) {
 						<CardMedia
 							className={classes1.media}
 							title={user.name}
-							alt="trail card"
+							alt="group card"
 							style={{
 								backgroundColor:
 									'#' +
