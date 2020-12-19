@@ -1,46 +1,45 @@
-import React, { useContext, useState } from 'react';
+import React,{ useContext, useEffect, useState}  from 'react';
 import { useQuery, useMutation, gql } from '@apollo/react-hooks';
 import { AuthContext } from '../firebase/Auth';
-import {
-	Modal,
-	Card,
-	CardActionArea,
-	CardActions,
-	CardContent,
-	CardMedia,
-	Button,
-	Typography,
-	Grid
-} from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
+import Loader from 'react-loader-spinner';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
-import ShareModal from './Modal/ShareModal';
 
 import TextField from '@material-ui/core/TextField';
 
 import '../App.css';
+const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",fontWeight:"bold", fontSize:"50px" };
 
 function getModalStyle() {
-	const top = 50;
-	const left = 50;
+  const top = 50;
+  const left = 50 ;
 
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`
-	};
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
 }
 
 const useStyles = makeStyles((theme) => ({
-	paper: {
-		position: 'absolute',
-		width: 400,
-		backgroundColor: theme.palette.background.paper,
-		border: '2px solid #000',
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3)
-	}
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 const useStyles1 = makeStyles({
@@ -56,198 +55,179 @@ const useStyles1 = makeStyles({
 });
 
 const getGroup = gql`
-	query getGroup {
-		getAllGroups {
-			id
-			name
-			members
-		}
-	}
+  query getGroup {
+    getAllGroups {
+      id
+      name
+      members
+  }
+}
 `;
 
 const addGroup = gql`
-	mutation createGroup(
-		$name: String!
-		$members: [ID]
-		$ownerId: ID
-		$description: String
-	) {
-		createGroup(
-			name: $name
-			members: $members
-			ownerId: $ownerId
-			description: $description
-		) {
-			name
-			id
-			members
-			description
-			ownerId
-		}
-	}
+mutation createGroup($name: String!, $members: [ID], $ownerId: ID, $description: String) {
+    createGroup(name: $name, members: $members, ownerId: $ownerId, description: $description) {
+        name,
+        id,
+        members,
+        description
+        ownerId
+    }
+}
 `;
 
+
+
 const useStyles2 = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-		maxWidth: 360
-	}
+  root: {
+    width: '100%',
+    maxWidth: 360
+  }
 }));
 
+
 function Groups(props) {
-	const classes = useStyles();
-	const classes1 = useStyles1();
-	const classes2 = useStyles2();
-	const [modalStyle] = React.useState(getModalStyle);
-	const [open, setOpen] = React.useState(false);
-	const { currentUser } = useContext(AuthContext);
-	const userID = currentUser.$b.uid;
-	const { isloading, error, data, refetch } = useQuery(getGroup);
-	let cards = [];
-	const [addGroups] = useMutation(addGroup);
-	const [newName, setnewName] = useState('');
-	const [newDescription, setnewDescription] = useState('');
+  const classes = useStyles();
+  const classes1 = useStyles1();
+  const classes2 = useStyles2();
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const userID=currentUser.$b.uid;
+  const { isloading, error, data, refetch } = useQuery(getGroup);
+  let cards = [];
+  const [addGroups] = useMutation(addGroup);
+  const [newName, setnewName] = useState('');
+  const [newDescription, setnewDescription] = useState('');
+  const [load, setLoad] = useState(true);
 
-	if (data?.getAllGroups) {
-		console.log(data?.getAllGroups[0].id);
-	}
+  function refreshPage(){
+      window.location.reload();
+  }
+  useEffect(() => {
+    if (load){
+      setTimeout(refetch, 50)
+      setLoad(false)
+    }
+  }, []);
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
+const handleSubmit = (event) => {
+  event.preventDefault();
 
-		if (/\S/.test(newName)) {
-			addGroups({
-				variables: {
-					name: newName,
-					ownerId: userID,
-					description: newDescription,
-					members: [userID]
-				}
-			});
+  if (/\S/.test(newName)) {
+    addGroups({
+      variables: {
+        name: newName,
+        ownerId: userID,
+        description : newDescription,
+        members : [userID]
+      }
+    });
+    setnewName('');
+    setnewDescription('');
+    setTimeout(refetch, 1000);
+  }
+};
 
-			setnewName('');
-			setnewDescription('');
-			refetch();
-		}
-	};
-
-	if (data?.getAllGroups) {
-		let newCards = data.getAllGroups.map((group) => {
-			return (
-				<Grid item xs={12} sm={6} md={4} key={group.id}>
-					<Card className={classes1.root} key={group.id}>
-						<CardActionArea>
-							<Link to={`/groups/${group.id}`}>
-								<CardMedia
-									className={classes1.media}
-									title={group.name}
-									alt="trail card"
-									style={{ backgroundColor: 'red' }}
-									image="/imgs/take-a-hike-logo.png"
-								/>
-							</Link>
-							<CardContent>
-								<Typography
-									gutterBottom
-									variant="h5"
-									component="h2"
-								>
-									{group.name}
-								</Typography>
-							</CardContent>
-						</CardActionArea>
-						<CardActions>
-							<ShareModal trailid={props.trailId} type="group" />
-							<Button size="small" color="primary">
-								Learn More
-							</Button>
-						</CardActions>
-					</Card>
-				</Grid>
-			);
-		});
-		cards = newCards;
-	}
-	// <label for="gname">Group name:</label>
-	// <input type="text" id="gname" name="gname"></input>
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	const body = (
-		<div style={modalStyle} className={classes.paper}>
-			<h2 id="simple-modal-title">Create New Group</h2>
-			<p id="simple-modal-description">
-				Please Enter a Name to the group
-			</p>
-			<form
-				onSubmit={handleSubmit}
-				className={classes2.root}
-				noValidate
-				autoComplete="off"
-			>
-				<TextField
-					id="standard-basic"
-					label="Name your Group"
-					value={newName}
-					onInput={(e) => setnewName(e.target.value)}
-					multiline
-					rowsMax={4}
-				/>
-				<TextField
-					id="standard-basic"
-					label="Add a Description"
-					value={newDescription}
-					onInput={(e) => setnewDescription(e.target.value)}
-					multiline
-					rowsMax={4}
-				/>
-				<br />
-				<Button
-					type="submit"
-					value="Submit"
-					size="small"
-					color="primary"
-				>
-					Submit
-				</Button>
-				<Button
-					type="submit"
-					value="Submit"
-					size="small"
-					color="primary"
-					onClick={handleClose}
-				>
-					Go Back
-				</Button>
-			</form>
-		</div>
-	);
-
-	return (
-		<div>
-			<h2>Page for users groups</h2>
-			<div className="chran">
-				<button type="button" onClick={handleOpen}>
-					Create New Group
-				</button>
-				<Modal
-					open={open}
-					onClose={handleClose}
-					aria-labelledby="simple-modal-title"
-					aria-describedby="simple-modal-description"
-				>
-					{body}
-				</Modal>
-			</div>
-			<Grid container>{cards}</Grid>
-		</div>
-	);
+if (data?.getAllGroups) {
+  let newCards = data.getAllGroups.map((group) => {
+    return (
+      <Grid item xs={12} sm={6} md={4} key={group.id}>
+        <Card className={classes1.root} key={group.id}>
+          <CardActionArea>
+          <Link to={`/groups/${group.id}`}>
+              <CardMedia
+                className={classes1.media}
+                title={group.name}
+                alt="trail card"
+                style={{ backgroundColor: "#" + Math.floor(Math.random()* 16777215).toString(16) }}
+                image = "/imgs/take-a-hike-logo.png"
+              />
+              </Link>
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+              >
+                {group.name}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    );
+  });
+  cards = newCards;
 }
+// <label for="gname">Group name:</label>
+// <input type="text" id="gname" name="gname"></input>
 
+const handleOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+const body = (
+  <div style={modalStyle} className={classes.paper}>
+    <h2 id="simple-modal-title">Create New Group</h2>
+    <p id="simple-modal-description">
+      Please Enter a Name to the group
+    </p>
+    <form onSubmit={handleSubmit} className={classes2.root} noValidate autoComplete="off">
+      <TextField id="standard-basic" label="Name your Group" value={newName} onInput={(e) => setnewName(e.target.value)}
+        multiline rowsMax={4}/>
+      <TextField id="standard-basic" label="Add a Description" value={newDescription} onInput={(e) => setnewDescription(e.target.value)}
+          multiline rowsMax={4}/>
+      <br />
+      <Button
+        type="submit"
+        value="Submit"
+        size="small"
+        color="primary"
+      >
+        Submit
+      </Button>
+      <Button
+        type="submit"
+        value="Submit"
+        size="small"
+        color="primary"
+        onClick={handleClose}
+      >
+        Go Back
+      </Button>
+    </form>
+  </div>
+);
+
+if (error) {
+  return <div>Unexpected Error: {error}</div>;
+}
+if(isloading || !data){
+  return (
+    <div style={style}>
+    <Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
+    </div>
+  )
+}
+else{
+  return (
+    <div>
+      <div className = "buttonClass">
+      <button class = "buttons" type="button" onClick={handleOpen}>
+        Create New Group
+      </button>
+      </div>
+      <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
+        {body}
+      </Modal>
+      <Grid container>{cards}</Grid>
+    </div>
+  );
+}
+}
 export default Groups;
