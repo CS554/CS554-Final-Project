@@ -30,7 +30,7 @@ In the project directory, you run:
 
 Create an account using Email/Password, Google Sign-in, or Facebook Sign-in
 
-Select 'Home' and Take a Hike will find the 10 nearest trails to you.  Click one to learn more about it!
+Select 'Home' and Take a Hike will find the 10 nearest trails to you. Click one to learn more about it!
 
 When viewing details about a trail you can rate it, favorite it, share it, or leave a comment for the community.
 
