@@ -21,7 +21,9 @@ Our application is deployed to AWS so you don't need to setup a local enviornmen
 In the project directory, you run:
 
 `npm install`
+
 `npm test`
+
 `npm start`
 
 ## Using the App
