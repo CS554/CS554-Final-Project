@@ -267,11 +267,25 @@ function Groups(props) {
 	} else {
 		return (
 			<div>
-				<div className="buttonClass">
-					<button class="buttons" type="button" onClick={handleOpen}>
-						Create New Group
-					</button>
-				</div>
+				<Grid
+					container
+					spacing={0}
+					padding={1}
+					direction="column"
+					alignItems="center"
+					justify="center"
+					style={{ padding: 20 }}
+				>
+					<Grid item xs={12}>
+						<button
+							class="buttons"
+							type="button"
+							onClick={handleOpen}
+						>
+							Create New Group
+						</button>
+					</Grid>
+				</Grid>
 				<Modal
 					open={open}
 					onClose={handleClose}

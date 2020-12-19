@@ -5,7 +5,7 @@ import Loader from 'react-loader-spinner';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import Card from '@material-ui/core/Card';
+import { Card, Container } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -237,47 +237,67 @@ function Groups(props) {
 	};
 
 	const add = (
-		<div className="buttonClass">
-			<form
-				onSubmit={handleSubmit}
-				className={classes2.root}
-				noValidate
-				autoComplete="off"
-			>
-				<Button
-					type="submit"
-					value="Submit"
-					size="small"
-					color="primary"
-					variant="outlined"
-					style={style1}
+		<Grid
+			container
+			spacing={0}
+			padding={1}
+			direction="column"
+			alignItems="center"
+			justify="center"
+			style={{ padding: 20 }}
+		>
+			<Grid item xs={12}>
+				<form
+					onSubmit={handleSubmit}
+					className={classes2.root}
+					noValidate
+					autoComplete="off"
 				>
-					Add to Group
-				</Button>
-			</form>
-		</div>
+					<Button
+						type="submit"
+						value="Submit"
+						size="small"
+						color="primary"
+						variant="outlined"
+						style={style1}
+					>
+						Add to Group
+					</Button>
+				</form>
+			</Grid>
+		</Grid>
 	);
 
 	const remove = (
-		<div className="buttonClass">
-			<form
-				onSubmit={handleSubmit1}
-				className={classes2.root}
-				noValidate
-				autoComplete="off"
-			>
-				<Button
-					type="submit"
-					value="Submit"
-					size="small"
-					color="primary"
-					variant="outlined"
-					style={style1}
+		<Grid
+			container
+			spacing={0}
+			padding={1}
+			direction="column"
+			alignItems="center"
+			justify="center"
+			style={{ padding: 20 }}
+		>
+			<Grid item xs={12}>
+				<form
+					onSubmit={handleSubmit1}
+					className={classes2.root}
+					noValidate
+					autoComplete="off"
 				>
-					Remove from Group
-				</Button>
-			</form>
-		</div>
+					<Button
+						type="submit"
+						value="Submit"
+						size="small"
+						color="primary"
+						variant="outlined"
+						style={style1}
+					>
+						Remove from Group
+					</Button>
+				</form>
+			</Grid>
+		</Grid>
 	);
 
 	const del = (
@@ -326,13 +346,7 @@ function Groups(props) {
 			<div>
 				<h1>{groupData?.name}</h1>
 				<h2>{desc} </h2>
-				<Grid container>
-					<Grid item>
-						{newAdd &&
-							groupData?.members.indexOf(userID) < 0 &&
-							add}
-					</Grid>
-				</Grid>
+				{newAdd && groupData?.members.indexOf(userID) < 0 && add}
 				{newRemove && groupData?.members.indexOf(userID) > -1 && remove}
 				{groupData?.ownerId === userID && del}
 				<Grid container>{cards}</Grid>
