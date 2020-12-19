@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Account from './components/Account';
 import Home from './components/Home';
 import Landing from './components/Landing';
@@ -14,7 +14,7 @@ import Favorites from './components/Favorites';
 import Groups from './components/Groups';
 import GroupInfo from './components/GroupData';
 import HeaderImage from './images/hiking_horizontal.png';
-import Error from './components/Error'
+import Error from './components/Error';
 
 import { Box } from '@material-ui/core';
 
@@ -50,19 +50,26 @@ function App() {
 					<Navigation />
 				</Box>
 				<Switch>
-				<Route exact path="/" component={Landing} />
-				<PrivateRoute path="/home" component={Home} />
-				<PrivateRoute exact path="/account" component={Account} />
-				<PrivateRoute exact path="/trails/:id" component={Trail} />
-				<PrivateRoute exact path="/favorites" component={Favorites} />
-				<PrivateRoute exact path="/groups" component={Groups} />
-				<PrivateRoute exact path="/groups/:id" component={GroupInfo} />
-				<Route path="/signin" component={SignIn} />
-				<Route path="/signup" component={SignUp} />
-				<Route  component={Error} />
+					<Route exact path="/" component={Landing} />
+					<PrivateRoute path="/home" component={Home} />
+					<PrivateRoute exact path="/account" component={Account} />
+					<PrivateRoute exact path="/trails/:id" component={Trail} />
+					<PrivateRoute
+						exact
+						path="/favorites"
+						component={Favorites}
+					/>
+					<PrivateRoute exact path="/groups" component={Groups} />
+					<PrivateRoute
+						exact
+						path="/groups/:id"
+						component={GroupInfo}
+					/>
+					<Route path="/signin" component={SignIn} />
+					<Route path="/signup" component={SignUp} />
+					<Route component={Error} />
 				</Switch>
-				</Router>
-			
+			</Router>
 		</AuthProvider>
 	);
 }
