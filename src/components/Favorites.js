@@ -100,7 +100,7 @@ function Favorites(props) {
 	});
 
 	useEffect(() => {
-		console.log('loaded');
+		
 		reload();
 	}, []);
 
@@ -183,7 +183,7 @@ function Favorites(props) {
 												}
 											});
 											reload();
-											console.log('clicked');
+											
 										}}
 									>
 										Remove

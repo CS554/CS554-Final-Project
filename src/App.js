@@ -14,6 +14,7 @@ import Favorites from './components/Favorites';
 import Groups from './components/Groups';
 import GroupInfo from './components/GroupData';
 import HeaderImage from './images/hiking_horizontal.png';
+import Error from './components/Error'
 
 import { Box } from '@material-ui/core';
 
@@ -58,6 +59,7 @@ function App() {
 				<PrivateRoute exact path="/groups/:id" component={GroupInfo} />
 				<Route path="/signin" component={SignIn} />
 				<Route path="/signup" component={SignUp} />
+				<Route component={Error} />
 			</Router>
 		</AuthProvider>
 	);
