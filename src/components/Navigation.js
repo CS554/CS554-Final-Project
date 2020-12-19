@@ -114,40 +114,35 @@ const NavigationNonAuth = () => {
 				<Typography variant="h1">Take a Hike </Typography>
 				<AppBar position="relative" style={{ background: '#2E3B55' }}>
 					<Toolbar style={{ color: 'black' }}>
-						<IconButton
-							edge="start"
-							color="primary"
-							aria-label="menu"
-						></IconButton>
-						<div className="links">
-							<Typography variant="h4">
-								<NavLink exact to="/" activeClassName="active">
-									Landing
-								</NavLink>
-							</Typography>
+						<div className="links title">
+							<NavLink
+								exact
+								to="/"
+								activeClassName="active"
+								id="landing"
+							>
+								Landing
+							</NavLink>
 						</div>
-						<Typography variant="h4">
-							<div className="links">
-								<NavLink
-									exact
-									to="/signup"
-									activeClassName="active"
-								>
-									Sign-up
-								</NavLink>
-							</div>
-						</Typography>
-						<Typography variant="h4">
-							<div className="links">
-								<NavLink
-									exact
-									to="/signin"
-									activeClassName="active"
-								>
-									Sign-In
-								</NavLink>
-							</div>
-						</Typography>
+
+						<div className="links title">
+							<NavLink
+								exact
+								to="/signup"
+								activeClassName="active"
+							>
+								Sign-up
+							</NavLink>
+						</div>
+						<div className="links title">
+							<NavLink
+								exact
+								to="/signin"
+								activeClassName="active"
+							>
+								Sign-In
+							</NavLink>
+						</div>
 					</Toolbar>
 				</AppBar>
 			</nav>

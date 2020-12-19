@@ -84,7 +84,6 @@ function SignUp() {
 						noValidate
 						autoComplete="off"
 					>
-						{/* //<div className="form-group"> */}
 						<TextField
 							required
 							id="displayName"
@@ -93,18 +92,7 @@ function SignUp() {
 							variant="outlined"
 							type="text"
 						/>
-						{/* <label>
-						Name:
-						<input
-							className="form-control"
-							required
-							name="displayName"
-							type="text"
-							placeholder="Name"
-						/>
-					</label> */}
-						{/* //</div> */}
-						{/* <div className="form-group"> */}
+
 						<TextField
 							required
 							id="email"
@@ -113,19 +101,7 @@ function SignUp() {
 							variant="outlined"
 							type="email"
 						/>
-						{/* <label>
-						Email:
-						<input
-							className="form-control"
-							required
-							name="email"
-							type="email"
-							placeholder="Email"
-						/>
-					</label>
-				</div> */}
-						{/* <div className="form-group">
-					<label> */}
+
 						<TextField
 							required
 							id="passwordOne"
@@ -134,17 +110,7 @@ function SignUp() {
 							label="Password"
 							variant="outlined"
 						/>
-						{/* Password:
-						<input
-							className="form-control"
-							id="passwordOne"
-							name="passwordOne"
-							type="password"
-							placeholder="Password"
-							required
-						/>
-					</label>
-				</div> */}
+
 						<TextField
 							required
 							id="passwordTwo"
@@ -153,18 +119,7 @@ function SignUp() {
 							label="Confirm Password"
 							variant="outlined"
 						/>
-						{/* <div className="form-group">
-					<label>
-						Confirm Password:
-						<input
-							className="form-control"
-							name="passwordTwo"
-							type="password"
-							placeholder="Confirm Password"
-							required
-						/>
-					</label>
-				</div> */}
+
 						<Button
 							variant="contained"
 							color="primary"

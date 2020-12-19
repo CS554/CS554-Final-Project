@@ -44,6 +44,7 @@
 
 .buttonClass {
 	padding: 20px;
+	width: 50%;
 }
 
 .links {
@@ -86,9 +87,10 @@
 	padding: 20px;
 	color: white;
 }
-div {
+
+/* div {
 	margin: 0 auto;
-}
+} */
 img {
 	display: block;
 	margin-left: auto;

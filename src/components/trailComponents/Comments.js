@@ -85,7 +85,6 @@ function Comments(props) {
 
 	return (
 		<div>
-			<p className="reviewPad">Reviews</p>
 			{data?.getTrailsById &&
 				data.getTrailsById[0].comments.map(function ({
 					username,

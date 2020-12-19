@@ -62,7 +62,7 @@ function SignIn() {
 		);
 	}
 	return (
-		<Box display="flex" justifyContent="center">
+		<Box display="flex" justifyContent="center" width="5000">
 			<Box borderColor="primary.main" {...defaultProps}>
 				<div>
 					<h1>Login</h1>
@@ -80,19 +80,7 @@ function SignIn() {
 							variant="outlined"
 							type="email"
 						/>
-						{/* <div className="form-group">
-          <label> */}
-						{/* Email:
-            <input
-              className="form-control"
-              name="email"
-              id="email"
-              type="email"
-              placeholder="Email"
-              required
-            />
-          </label>
-        </div> */}
+
 						<TextField
 							required
 							id="password"
@@ -101,19 +89,7 @@ function SignIn() {
 							variant="outlined"
 							type="password"
 						/>
-						{/* <div className="form-group">
-          <label>
-            Password:
-            <input
-              className="form-control"
-              name="password"
-              id="password"
-              type="password"
-              placeholder="Password"
-              required
-            />
-          </label>
-        </div> */}
+
 						<Button
 							variant="contained"
 							color="primary"
