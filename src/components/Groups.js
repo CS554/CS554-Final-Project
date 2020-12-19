@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/react-hooks';
 import { AuthContext } from '../firebase/Auth';
 import {
@@ -16,10 +16,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
 import ShareModal from './Modal/ShareModal';
+import Loader from 'react-loader-spinner';
 
 import TextField from '@material-ui/core/TextField';
 
 import '../App.css';
+
+const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",fontWeight:"bold", fontSize:"50px" };
 
 function getModalStyle() {
 	const top = 50;
@@ -107,10 +110,17 @@ function Groups(props) {
 	const [addGroups] = useMutation(addGroup);
 	const [newName, setnewName] = useState('');
 	const [newDescription, setnewDescription] = useState('');
+	const [load, setLoad] = useState(true);
 
-	if (data?.getAllGroups) {
-		console.log(data?.getAllGroups[0].id);
-	}
+  function refreshPage(){
+      window.location.reload();
+  }
+  useEffect(() => {
+    if (load){
+      setTimeout(refetch, 50)
+      setLoad(false)
+    }
+  }, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -127,7 +137,7 @@ function Groups(props) {
 
 			setnewName('');
 			setnewDescription('');
-			refetch();
+			setTimeout(refetch, 1000);
 		}
 	};
 
@@ -141,8 +151,8 @@ function Groups(props) {
 								<CardMedia
 									className={classes1.media}
 									title={group.name}
-									alt="trail card"
-									style={{ backgroundColor: 'red' }}
+									alt="group card"
+									style={{ backgroundColor: "#" + Math.floor(Math.random()* 16777215).toString(16) }}
 									image="/imgs/take-a-hike-logo.png"
 								/>
 							</Link>
@@ -226,25 +236,30 @@ function Groups(props) {
 		</div>
 	);
 
-	return (
-		<div>
-			<h2>Page for users groups</h2>
-			<div className="chran">
-				<button type="button" onClick={handleOpen}>
-					Create New Group
-				</button>
-				<Modal
-					open={open}
-					onClose={handleClose}
-					aria-labelledby="simple-modal-title"
-					aria-describedby="simple-modal-description"
-				>
-					{body}
-				</Modal>
-			</div>
-			<Grid container>{cards}</Grid>
-		</div>
-	);
+	if (error) {
+	  return <div>Unexpected Error: {error}</div>;
+	}
+	if(isloading || !data){
+	  return (
+	    <div style={style}>
+	    <Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
+	    </div>
+	  )
+	}
+	else{
+		return (
+	    <div>
+	      <div className = "buttonClass">
+	      <button class = "buttons" type="button" onClick={handleOpen}>
+	        Create New Group
+	      </button>
+	      </div>
+	      <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
+	        {body}
+	      </Modal>
+	      <Grid container>{cards}</Grid>
+	    </div>
+	  );
 }
-
+}
 export default Groups;

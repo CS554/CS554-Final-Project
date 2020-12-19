@@ -22,6 +22,30 @@
 	margin: 0 auto;
 }
 
+.buttons:hover {
+  background-color: #2E3B55;
+  color: white;
+}
+/* .addRemove{
+	background-color: #2E3B55;
+	color: white;
+} */
+.buttons{
+	background-color: #0d3482;
+	font-size: 24px;
+	padding: 14px 40px;
+	border-radius: 12px;
+	border: 2px solid #2E3B55;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+	text-align: center;
+	color: white;
+}
+
+.buttonClass{
+	text-align: center;
+	padding: 20px;
+}
+
 .links {
 	margin: 10px;
 }
