@@ -50,7 +50,8 @@ const useStyles = makeStyles({
 		flexGrow: 1,
 		minWidth: 200,
 		maxWidth: 500,
-		maxHeight: 300
+		minHeight: 300,
+		maxHeight: 350
 	},
 	media: {
 		height: 140
