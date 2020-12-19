@@ -99,7 +99,9 @@ const NavigationAuth = () => {
 					</AppBar>
 				</nav>
 				<br />
-				<div className="user name">Welcome {data.getUser.name}</div>
+				{{ data } && (
+					<div className="user name">Welcome {data.getUser.name}</div>
+				)}
 			</div>
 		);
 	}

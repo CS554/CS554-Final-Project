@@ -31,11 +31,25 @@ function Comments(props) {
 		}
 	`;
 
+	const GET_USER = gql`
+		query($userId: ID!) {
+			getUser(userId: $userId) {
+				name
+			}
+		}
+	`;
+
 	const [addComment] = useMutation(COMMENT_MUTATION);
 
 	const { isloading, error, data, refetch } = useQuery(GET_COMMENTS, {
 		variables: {
 			trailID: props.trailId
+		}
+	});
+
+	const { data: userData } = useQuery(GET_USER, {
+		variables: {
+			userId: firebase.auth().currentUser.uid
 		}
 	});
 
@@ -53,7 +67,7 @@ function Comments(props) {
 			addComment({
 				variables: {
 					trailId: props.trailId,
-					username: firebase.auth().currentUser.displayName,
+					username: userData.getUser.name,
 					text: newComment
 				}
 			});
