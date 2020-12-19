@@ -25,7 +25,7 @@ function Account() {
 				<ChangePassword />
 				<ButtonGroup
 					variant="contained"
-					color="secondary"
+					color="alternate"
 					aria-label="contained primary button group"
 				>
 					<Button>
