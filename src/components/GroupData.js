@@ -186,8 +186,8 @@ function Groups(props) {
 			});
 			setAdd(false);
 			setRemove(true);
-			setTimeout(userRefetch, 700);
-			setTimeout(refetch, 700);
+			setTimeout(userRefetch, 1000);
+			setTimeout(refetch, 1000);
 		}
 	};
 
@@ -203,8 +203,8 @@ function Groups(props) {
 			});
 			setAdd(true);
 			setRemove(false);
-			setTimeout(userRefetch, 700);
-			setTimeout(refetch, 700);
+			setTimeout(userRefetch, 1000);
+			setTimeout(refetch, 1000);
 		}
 	};
 

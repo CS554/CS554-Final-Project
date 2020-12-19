@@ -145,7 +145,7 @@ function Groups(props) {
 
 			setnewName('');
 			setnewDescription('');
-			setTimeout(refetch, 700);
+			setTimeout(refetch, 1000);
 		}
 	};
 
