@@ -22,7 +22,14 @@ import TextField from '@material-ui/core/TextField';
 
 import '../App.css';
 
-const style = { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",fontWeight:"bold", fontSize:"50px" };
+const style = {
+	position: 'fixed',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	fontWeight: 'bold',
+	fontSize: '50px'
+};
 
 function getModalStyle() {
 	const top = 50;
@@ -112,15 +119,15 @@ function Groups(props) {
 	const [newDescription, setnewDescription] = useState('');
 	const [load, setLoad] = useState(true);
 
-  function refreshPage(){
-      window.location.reload();
-  }
-  useEffect(() => {
-    if (load){
-      setTimeout(refetch, 50)
-      setLoad(false)
-    }
-  }, []);
+	function refreshPage() {
+		window.location.reload();
+	}
+	useEffect(() => {
+		if (load) {
+			setTimeout(refetch, 50);
+			setLoad(false);
+		}
+	}, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -152,7 +159,13 @@ function Groups(props) {
 									className={classes1.media}
 									title={group.name}
 									alt="group card"
-									style={{ backgroundColor: "#" + Math.floor(Math.random()* 16777215).toString(16) }}
+									style={{
+										backgroundColor:
+											'#' +
+											Math.floor(
+												Math.random() * 16777215
+											).toString(16)
+									}}
 									image="/imgs/take-a-hike-logo.png"
 								/>
 							</Link>
@@ -167,7 +180,7 @@ function Groups(props) {
 							</CardContent>
 						</CardActionArea>
 						<CardActions>
-							<ShareModal trailid={props.trailId} type="group" />
+							<ShareModal id={props.trailId} type="group" />
 						</CardActions>
 					</Card>
 				</Grid>
@@ -237,29 +250,41 @@ function Groups(props) {
 	);
 
 	if (error) {
-	  return <div>Unexpected Error: {error}</div>;
+		return <div>Unexpected Error: {error}</div>;
 	}
-	if(isloading || !data){
-	  return (
-	    <div style={style}>
-	    <Loader className="Loader" type="Grid" color="#00BFFF" height={150} width={150} />
-	    </div>
-	  )
-	}
-	else{
+	if (isloading || !data) {
 		return (
-	    <div>
-	      <div className = "buttonClass">
-	      <button class = "buttons" type="button" onClick={handleOpen}>
-	        Create New Group
-	      </button>
-	      </div>
-	      <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-	        {body}
-	      </Modal>
-	      <Grid container>{cards}</Grid>
-	    </div>
-	  );
-}
+			<div style={style}>
+				<Loader
+					className="Loader"
+					type="Grid"
+					color="#00BFFF"
+					height={150}
+					width={150}
+				/>
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<div className="buttonClass">
+					<button class="buttons" type="button" onClick={handleOpen}>
+						Create New Group
+					</button>
+				</div>
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					{body}
+				</Modal>
+				<Grid container spacing={2}>
+					{cards}
+				</Grid>
+			</div>
+		);
+	}
 }
 export default Groups;
