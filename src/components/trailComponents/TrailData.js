@@ -77,10 +77,19 @@ function TrailData(props) {
 
 	function calcRating() {
 		let finalRating = 0;
+		if(data.getTrailsById[0].ratings){
 		data.getTrailsById[0].ratings.forEach((key) => {
 			finalRating = finalRating + key.rating;
 		});
+	}
+		console.log(finalRating);
+
+		if(finalRating===0 || isNaN(finalRating)){
+			return 0;
+		}
+		else{
 		return finalRating / data.getTrailsById[0].ratings.length;
+		}
 	}
 	//
 
@@ -101,7 +110,7 @@ function TrailData(props) {
 								<StarRateIcon />
 							</Avatar>
 						</ListItemAvatar>
-						{props.ratings && (
+						
 							<Rating
 								name="hover-feedback"
 								precision={0.5}
@@ -118,7 +127,7 @@ function TrailData(props) {
 									console.log(newValue);
 								}}
 							/>
-						)}
+						
 						<br />
 						<ListItemText
 							secondary={`${data.getTrailsById[0].ratings.length} ratings`}

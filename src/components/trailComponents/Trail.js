@@ -103,7 +103,7 @@ function Trail(props) {
 				<Grid item xs={3}>
 					<TrailData
 						length={trailData.length}
-						ratings={calcRating()}
+						
 						num_of_ratings={trailData.ratings.length}
 						trailID={props.match.params.id}
 						difficulty={trailData.difficulty}
