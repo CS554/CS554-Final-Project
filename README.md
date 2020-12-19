@@ -1,8 +1,16 @@
-## Firebase Auth and React Example
+# Take a Hike!
 
-This project uses React and Firebase Authentication. You will need to put your Firebase credentials into a .env file in the project root as shown in the lecture. The .env file should look like below.
+Take a Hike is available online at https://dev.d2kuny68xeo7bn.amplifyapp.com
 
-> ✨ Bootstrapped with Create Snowpack App (CSA). REACT_APP_FIREBASE_KEY = "YOUR FB API KEY"  
+Take a Hike is a Hiking trail discovery and ranking service. This application allows users to find hikes near them, view trail data, including ratings, distance, and conditions. Users can rate and share each hikes with their friends as well as join and create groups.
+
+## Getting started locally
+
+Our application is deployed to AWS so you don't need to setup a local enviornment, but if you want to, here's how
+
+### Make sure you have a .env file with the following structure
+
+> REACT_APP_FIREBASE_KEY = "YOUR FB API KEY"  
 >  REACT_APP_FIREBASE_DOMAIN= "YOUR FB DOMAIN"  
 >  REACT_APP_FIREBASE_DATABASE = "YOUR FB DB URL"  
 >  REACT_APP_FIREBASE_PROJECT_ID = "YOUR FB PROJECT ID"  
@@ -10,7 +18,13 @@ This project uses React and Firebase Authentication. You will need to put your F
 >  REACT_APP_FIREBASE_SENDER_ID = "YOUR FB SENDER ID"  
 >  REACT_APP_FIREBASE_APP_ID = "YOUR FB APP ID"
 
-## Available Scripts ## Login Providers
+In the project directory, you run:
+
+### `npm install`
+
+### `npm test`
+
+### `npm start`
 
 ### npm start Email/Password, Google Sign-in, Facebook Sign-in
 
@@ -84,3 +98,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+how are we setup? Firebase
