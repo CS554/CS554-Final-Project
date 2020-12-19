@@ -87,6 +87,30 @@ const addRating = async (userId, trailId, rating) => {
 	const client = new faunadb.Client({
 		secret: process.env.FAUNA_API_KEY
 	});
+
+	const ratings = await getRatings(trailId, client);
+
+	// check if user is in ratings
+	for (let i = 0; i < ratings.length; i++) {
+		if (ratings[i].userId === userId) {
+			// find rating and replace
+			const { ref } = await client.query(
+				Get(Match(Index('get_rating'), trailId, userId))
+			);
+			// replace
+			const replaceResponse = await client.query(
+				Replace(ref, {
+					data: {
+						userId: userId,
+						trailId: trailId,
+						rating: rating
+					}
+				})
+			);
+			return replaceResponse.data;
+		}
+	}
+
 	const response = await client.query(
 		Create(Collection('ratings'), {
 			data: {
@@ -96,6 +120,7 @@ const addRating = async (userId, trailId, rating) => {
 			}
 		})
 	);
+
 	return response.data;
 };
 
