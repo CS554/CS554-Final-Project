@@ -126,6 +126,10 @@ function Groups(props) {
 		}
 	}, [load, refetch]);
 
+	if (error) {
+		return <h2>Error 404: Page Not Found</h2>;
+	}
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
@@ -141,7 +145,7 @@ function Groups(props) {
 
 			setnewName('');
 			setnewDescription('');
-			setTimeout(refetch, 1000);
+			setTimeout(refetch, 700);
 		}
 	};
 
@@ -185,9 +189,6 @@ function Groups(props) {
 		});
 		cards = newCards;
 	}
-	// <label for="gname">Group name:</label>
-	// <input type="text" id="gname" name="gname"></input>
-
 	const handleOpen = () => {
 		setOpen(true);
 	};
@@ -245,10 +246,6 @@ function Groups(props) {
 			</form>
 		</div>
 	);
-
-	if (error) {
-		return <div>Unexpected Error: {error}</div>;
-	}
 	if (isloading || !data) {
 		return (
 			<div style={style}>

@@ -140,9 +140,6 @@ function Groups(props) {
 		return <h2>Error 404: Page Not Found</h2>;
 	}
 
-	// if (noGroupError) {
-	//   return <h1>ERROR 404: This Group does not exist</h1>;
-
 	if (userData?.listUsersInGroup) {
 		let newUser = userData.listUsersInGroup.map((user) => {
 			return (
@@ -189,8 +186,8 @@ function Groups(props) {
 			});
 			setAdd(false);
 			setRemove(true);
-			setTimeout(userRefetch, 1000);
-			setTimeout(refetch, 1000);
+			setTimeout(userRefetch, 700);
+			setTimeout(refetch, 700);
 		}
 	};
 
@@ -206,13 +203,9 @@ function Groups(props) {
 			});
 			setAdd(true);
 			setRemove(false);
-			setTimeout(userRefetch, 1000);
-			setTimeout(refetch, 1000);
+			setTimeout(userRefetch, 700);
+			setTimeout(refetch, 700);
 		}
-	};
-
-	const g = () => {
-		history.push('/groups');
 	};
 
 	const handleSubmit2 = (event) => {
@@ -224,12 +217,7 @@ function Groups(props) {
 					groupId: props.match.params.id
 				}
 			});
-			// setAdd(true);
-			// setRemove(false);
-			// setTimeout(userRefetch, 1000);
-			// setTimeout(refetch, 1000);
-			setTimeout(g, 1000);
-			//history.push('/groups')
+			history.push('/groups');
 		}
 	};
 
@@ -298,26 +286,35 @@ function Groups(props) {
 	);
 
 	const del = (
-		<div className="buttonClass">
-			<form
-				onSubmit={handleSubmit2}
-				className={classes2.root}
-				noValidate
-				autoComplete="off"
-			>
-				<Button
-					type="submit"
-					value="Submit"
-					size="small"
-					color="primary"
-					variant="outlined"
-					style={style1}
-					// component={Link} to="/groups"
+		<Grid
+			container
+			spacing={0}
+			padding={1}
+			direction="column"
+			alignItems="center"
+			justify="center"
+			style={{ padding: 20 }}
+		>
+			<Grid item xs={12}>
+				<form
+					onSubmit={handleSubmit2}
+					className={classes2.root}
+					noValidate
+					autoComplete="off"
 				>
-					Delete Group
-				</Button>
-			</form>
-		</div>
+					<Button
+						type="submit"
+						value="Submit"
+						size="small"
+						color="primary"
+						variant="outlined"
+						style={style1}
+					>
+						Delete Group
+					</Button>
+				</form>
+			</Grid>
+		</Grid>
 	);
 
 	let desc = '';
