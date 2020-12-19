@@ -326,7 +326,13 @@ function Groups(props) {
 			<div>
 				<h1>{groupData?.name}</h1>
 				<h2>{desc} </h2>
-				{newAdd && groupData?.members.indexOf(userID) < 0 && add}
+				<Grid container>
+					<Grid item>
+						{newAdd &&
+							groupData?.members.indexOf(userID) < 0 &&
+							add}
+					</Grid>
+				</Grid>
 				{newRemove && groupData?.members.indexOf(userID) > -1 && remove}
 				{groupData?.ownerId === userID && del}
 				<Grid container>{cards}</Grid>
